@@ -1,10 +1,12 @@
 extends Node2D
+var rng = RandomNumberGenerator.new()
 
 #Bude se gemu omezený počet? = když protihráč sebere červrny -> menší šance ho znovu získat
 #Uvidí hráči gemi soupeřů
 @export var ActivePl = 1
 var FocusFigure = false
 var FocusFigurePos = Vector2(0,0)
+var MoveDice = 0
 
 var Figures = []
 var Gems = []
@@ -34,6 +36,7 @@ var Map:Array[Array] = [
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	reloadMap()
+	rollMoveDice()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Click"):
@@ -43,9 +46,11 @@ func _input(event: InputEvent) -> void:
 		Tile = Vector2(floor(Tile.x/TileSize),floor(Tile.y/TileSize))
 		
 		#SecondClick
-		if Map[Tile.y][Tile.x] == 0 and FocusFigure:
+		var Diagonal = (Tile.y+Tile.x == FocusFigurePos.y+FocusFigurePos.x or Tile.y-Tile.x == FocusFigurePos.y-FocusFigurePos.x)
+		if Map[Tile.y][Tile.x] == 0 and FocusFigure and Diagonal and abs(Tile.y-FocusFigurePos.y) <= MoveDice:
 			Map[FocusFigurePos.y][FocusFigurePos.x] = 0
 			Map[Tile.y][Tile.x] = ActivePl
+			MoveDice -= abs(Tile.y-FocusFigurePos.y)
 			FocusFigurePos = Tile
 			reloadMap()
 			#FocusFigure = false
@@ -59,6 +64,7 @@ func _input(event: InputEvent) -> void:
 		ActivePl+=1
 		if ActivePl > 4:
 			ActivePl -= 4
+		rollMoveDice()
 		
 func reloadMap():
 	#ClearTile
@@ -91,6 +97,10 @@ func reloadMap():
 				Gem.position = Vector2(x*50+25,y*50+25)
 				Gems.append(Gem)
 				add_child(Gem)
+	
+func rollMoveDice():
+	MoveDice = floor(rng.randf_range(1, 7))
+	print(MoveDice)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
