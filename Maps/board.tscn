@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://chi633188sjr4"]
+[gd_scene load_steps=11 format=3 uid="uid://chi633188sjr4"]
 
-[ext_resource type="Script" uid="uid://c4mb73s1eltjr" path="res://Maps/board.gd" id="1_jo01r"]
+[ext_resource type="Script" uid="uid://c4mb73s1eltjr" path="res://Scripts/board.gd" id="1_jo01r"]
 [ext_resource type="Texture2D" uid="uid://bh8swn7ciae4m" path="res://Sprites/BoardS.png" id="2_jo01r"]
 [ext_resource type="Texture2D" uid="uid://dp8dcwil4socg" path="res://Sprites/Gems.png" id="3_18uys"]
+[ext_resource type="Texture2D" uid="uid://bqpulmbq6jafv" path="res://Sprites/Cursor.png" id="7_xudy4"]
+[ext_resource type="Script" uid="uid://dkmpg168vlo7c" path="res://Scripts/inventory_items.gd" id="8_gj8lt"]
+[ext_resource type="Script" uid="uid://db4657sf6h6cs" path="res://Scripts/cursor.gd" id="8_tvoxi"]
+[ext_resource type="Script" uid="uid://cbocqhsx05252" path="res://Scripts/gem.gd" id="9_82e4u"]
+[ext_resource type="Texture2D" uid="uid://u3perbt3inmj" path="res://Sprites/Glow.png" id="9_buali"]
+[ext_resource type="Script" uid="uid://dtvxerclhleww" path="res://Scripts/glow.gd" id="10_82e4u"]
+[ext_resource type="Script" uid="uid://dee17nmynpuqn" path="res://Scripts/deadbody.gd" id="10_gj8lt"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_jo01r")
@@ -14,9 +21,42 @@ position = Vector2(425, 425)
 texture = ExtResource("2_jo01r")
 offset = Vector2(425, 425)
 
-[node name="Gems" type="Sprite2D" parent="."]
+[node name="Colectible" type="Sprite2D" parent="."]
 position = Vector2(425, 425)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_18uys")
 hframes = 4
 frame = 3
+
+[node name="Figure" type="Node" parent="."]
+
+[node name="InventoryItems" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("8_gj8lt")
+
+[node name="gem" type="Button" parent="InventoryItems"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("9_82e4u")
+metadata/_custom_type_script = "uid://dkmpg168vlo7c"
+
+[node name="deadbody" type="Button" parent="InventoryItems"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("10_gj8lt")
+metadata/_custom_type_script = "uid://dkmpg168vlo7c"
+
+[node name="Cursor" type="Sprite2D" parent="."]
+position = Vector2(25, 25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_xudy4")
+hframes = 4
+script = ExtResource("8_tvoxi")
+
+[node name="Glow" type="Sprite2D" parent="."]
+texture = ExtResource("9_buali")
+hframes = 4
+script = ExtResource("10_82e4u")
