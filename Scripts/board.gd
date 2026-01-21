@@ -1,6 +1,5 @@
 extends Node2D
 enum players {blue,red,green,yelow}
-enum {mage = 4}
 
 @export var ActivePlayer: players = players.blue
 
@@ -20,7 +19,7 @@ var Map:Array[Array] = [
 	[0,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,5,0,9,0,5,0,0,0,0,0,0],
+	[0,0,0,0,0,0,5,0,0,0,5,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0],
@@ -31,6 +30,7 @@ var Map:Array[Array] = [
 	[4,0,4,0,0,0,0,0,0,0,0,0,0,0,3,0,3]
 	]
 
+#Zatím není motřeba. Možno smazat
 var Figures = [
 	[], #Blue
 	[], #Red
@@ -63,12 +63,62 @@ func _ready() -> void:
 				newFigure.PosX = col
 				newFigure.PosY = row
 				$Figure.add_child(newFigure)
-				Figures[mage].append(newFigure)
+				Figures[4].append(newFigure)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("NextTurn"):
 		GlobalVar.ActivePlayer += 1
 		$Glow.hide()
+		deleteMarks()
+		
 
-func _process(delta: float) -> void:
-	pass
+enum {X,Y}
+
+func marking(Positions: Array[Array], maxDistance: int, distance: int = 1):
+	if distance > maxDistance:
+		return
+	
+	var NextPos: Array[Array]
+	
+	for pos in Positions:
+		var newX = pos[X]+1
+		var newY = pos[Y]+1
+		#Check right bottom	
+		if pos[X] < 16 and pos[Y] < 16 and Map[newY][newX] == 0:
+			Map[newY][newX] = distance * -1
+			NextPos.append([newX,newY])
+			$Marks.add_child(Mark.new(newX,newY,distance))
+		#Check left bottom
+		newX = pos[X]-1
+		newY = pos[Y]+1
+		if pos[X] > 0 and pos[Y] < 16 and Map[newY][newX] == 0:
+			Map[newY][newX] = distance * -1
+			NextPos.append([newX,newY])
+			$Marks.add_child(Mark.new(newX,newY,distance))
+		#Check left top
+		newX = pos[X]-1
+		newY = pos[Y]-1
+		if pos[X] > 0 and pos[Y] > 0 and Map[newY][newX] == 0:
+			Map[newY][newX] = distance * -1
+			NextPos.append([newX,newY])
+			$Marks.add_child(Mark.new(newX,newY,distance))
+		#Check right top
+		newX = pos[X]+1
+		newY = pos[Y]-1
+		if pos[X] < 16 and pos[Y] > 0 and Map[newY][newX] == 0:
+			Map[newY][newX] = distance * -1
+			NextPos.append([newX,newY])
+			$Marks.add_child(Mark.new(newX,newY,distance))
+			
+	marking(NextPos, maxDistance, distance+1)
+		
+func deleteMarks():
+	for i in $Marks.get_children():
+		$Marks.remove_child(i)
+		
+	for row in len(Map):
+		for col in len(Map[row]):
+			if Map[row][col] < 0:
+				Map[row][col] = 0
+		
+	
