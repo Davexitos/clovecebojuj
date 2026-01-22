@@ -2,6 +2,7 @@ extends Node2D
 enum players {blue,red,green,yelow}
 
 @export var ActivePlayer: players = players.blue
+@export var nextTurnLimit = false
 
 var rng = RandomNumberGenerator.new()
 
@@ -46,6 +47,7 @@ var Inventory = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalVar.ActivePlayer =  ActivePlayer
+	rollDice()
 	
 	for row in len(Map):
 		for col in len(Map[row]):
@@ -67,10 +69,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("NextTurn"):
-		GlobalVar.ActivePlayer += 1
-		$Glow.hide()
-		deleteMarks()
-		
+		nextTurn()
 
 enum {X,Y}
 
@@ -121,4 +120,29 @@ func deleteMarks():
 			if Map[row][col] < 0:
 				Map[row][col] = 0
 		
+func nextTurn():
+	if GlobalVar.Roll > 0 and nextTurnLimit:
+		return
 	
+	GlobalVar.ActivePlayer += 1
+	rollDice()
+	$Glow.hide()
+	deleteMarks()
+	
+func _on_button_pressed() -> void:
+	nextTurn()
+
+func rollDice():
+	GlobalVar.Roll = rng.randi_range(1,6)
+	$Dice/Num.text = str(GlobalVar.Roll)
+	
+func move(PosX:int, PosY:int, subRoll: int):
+	deleteMarks()
+	
+	Map[GlobalVar.ActiveFigure.PosY][GlobalVar.ActiveFigure.PosX] = 0
+	Map[PosY][PosX] = GlobalVar.ActivePlayer+1
+		
+	GlobalVar.ActiveFigure.PosX=PosX
+	GlobalVar.ActiveFigure.PosY=PosY
+	GlobalVar.Roll -= subRoll
+	$Dice/Num.text = str(GlobalVar.Roll)

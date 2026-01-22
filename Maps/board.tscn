@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://chi633188sjr4"]
+[gd_scene load_steps=16 format=3 uid="uid://chi633188sjr4"]
 
 [ext_resource type="Script" uid="uid://c4mb73s1eltjr" path="res://Scripts/board.gd" id="1_jo01r"]
 [ext_resource type="Texture2D" uid="uid://bh8swn7ciae4m" path="res://Sprites/BoardS.png" id="2_jo01r"]
@@ -10,6 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://u3perbt3inmj" path="res://Sprites/Glow.png" id="9_buali"]
 [ext_resource type="Script" uid="uid://dtvxerclhleww" path="res://Scripts/glow.gd" id="10_82e4u"]
 [ext_resource type="Script" uid="uid://dee17nmynpuqn" path="res://Scripts/deadbody.gd" id="10_gj8lt"]
+[ext_resource type="Texture2D" uid="uid://skwruhwjoigs" path="res://Sprites/Dice.png" id="11_7uld1"]
+[ext_resource type="Texture2D" uid="uid://bjtnv86a1xbvh" path="res://Sprites/Inventory.png" id="12_wxx8k"]
+[ext_resource type="Texture2D" uid="uid://bk2iaeobdr3xi" path="res://Sprites/Shop.png" id="13_qtp1v"]
+[ext_resource type="Texture2D" uid="uid://bsjsv0fjmwpf6" path="res://Sprites/Button.png" id="14_purbk"]
+[ext_resource type="Script" uid="uid://8chxqj8kv73g" path="res://Scripts/button.gd" id="15_wxx8k"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_jo01r")
@@ -62,3 +67,70 @@ script = ExtResource("8_tvoxi")
 texture = ExtResource("9_buali")
 hframes = 4
 script = ExtResource("10_82e4u")
+
+[node name="Dice" type="Sprite2D" parent="."]
+position = Vector2(1089, 179)
+scale = Vector2(0.41629, 0.41629)
+texture = ExtResource("11_7uld1")
+
+[node name="Label" type="Label" parent="Dice"]
+offset_left = -144.13
+offset_top = -384.348
+offset_right = 133.87
+offset_bottom = -240.348
+theme_override_font_sizes/font_size = 105
+text = "Move"
+
+[node name="Num" type="Label" parent="Dice"]
+offset_left = -91.2826
+offset_top = -204.185
+offset_right = 117.717
+offset_bottom = 295.815
+theme_override_font_sizes/font_size = 281
+text = "1"
+
+[node name="Inventory" type="Sprite2D" parent="."]
+position = Vector2(-245.75, 473.308)
+scale = Vector2(0.383439, 0.383439)
+texture = ExtResource("12_wxx8k")
+
+[node name="Label" type="Label" parent="Inventory"]
+offset_left = -282.314
+offset_top = -1072.68
+offset_right = 206.686
+offset_bottom = -928.682
+theme_override_font_sizes/font_size = 105
+text = "Inventory"
+
+[node name="Shop" type="Sprite2D" parent="."]
+position = Vector2(1110.07, 504.75)
+scale = Vector2(0.426011, 0.361207)
+texture = ExtResource("13_qtp1v")
+
+[node name="Label" type="Label" parent="Shop"]
+offset_left = -150.397
+offset_top = -447.804
+offset_right = 103.603
+offset_bottom = -303.804
+theme_override_font_sizes/font_size = 105
+text = "Shop"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 909.0
+offset_top = 689.0
+offset_right = 1318.0
+offset_bottom = 831.0
+icon = ExtResource("14_purbk")
+flat = true
+expand_icon = true
+script = ExtResource("15_wxx8k")
+
+[node name="Label" type="Label" parent="Button"]
+offset_left = 28.0
+offset_top = 15.0
+offset_right = 378.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 75
+text = "Next turn"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

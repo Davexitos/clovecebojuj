@@ -1,12 +1,26 @@
 class_name Mark
 extends Sprite2D
 
+var Value
+var PosX: int:
+	set(val):
+		position.x = 25 + 50 * val
+	get:
+		return (position.x - 25) / 50
+		
+var PosY: int:
+	set(val):
+		position.y = 25 + 50 * val
+	get:
+		return (position.y - 25) / 50
+
 
 func _init(posX: int, posY: int, val :int) -> void:
 	texture = load("res://Sprites/Mark.png")
 	scale = Vector2(.5,.5)
-	position.x = 25 + 50 * posX
-	position.y = 25 + 50 * posY
+	PosY = posY
+	PosX = posX
+	Value = val
 	
 	var num = Label.new()
 	num.text = str(val)
@@ -16,6 +30,6 @@ func _init(posX: int, posY: int, val :int) -> void:
 	add_child(num)
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Click"):
+	if event.is_action_pressed("Click") and $"../../Cursor".visible:
 		if position == $"../../Cursor".position:
-			print("Hi")
+			$"../../../Board".move(PosX,PosY,Value)

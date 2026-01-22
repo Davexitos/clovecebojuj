@@ -18,10 +18,6 @@ func _process(delta: float) -> void:
 		show()
 	else:
 		hide()
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("NextTurn"):
-		if frame == 3:
-			frame = 0
-		else:
-			frame += 1 
+		
+func nextTurn(val: int):
+	frame = val
