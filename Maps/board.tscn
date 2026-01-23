@@ -16,6 +16,8 @@
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_jo01r")
+nextTurnLimit = false
+infinityRoll = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(425, 425)
@@ -85,17 +87,57 @@ theme_override_font_sizes/font_size = 281
 text = "1"
 
 [node name="Inventory" type="Sprite2D" parent="."]
-position = Vector2(-245.75, 473.308)
-scale = Vector2(0.383439, 0.383439)
+position = Vector2(-263, 453)
+scale = Vector2(0.741032, 0.741033)
 texture = ExtResource("12_wxx8k")
 
 [node name="Label" type="Label" parent="Inventory"]
-offset_left = -282.314
-offset_top = -1072.68
-offset_right = 206.686
-offset_bottom = -928.682
-theme_override_font_sizes/font_size = 105
+offset_left = -140.391
+offset_top = -587.09
+offset_right = 101.609
+offset_bottom = -515.09
+theme_override_font_sizes/font_size = 55
 text = "Inventory"
+
+[node name="Gem1" type="Label" parent="Inventory"]
+offset_left = 93.1134
+offset_top = -377.851
+offset_right = 151.113
+offset_bottom = -239.851
+theme_override_font_sizes/font_size = 101
+text = "0"
+
+[node name="Gem2" type="Label" parent="Inventory"]
+offset_left = 90.4144
+offset_top = -240.205
+offset_right = 148.414
+offset_bottom = -102.205
+theme_override_font_sizes/font_size = 101
+text = "0"
+
+[node name="Gem3" type="Label" parent="Inventory"]
+offset_left = 90.4144
+offset_top = -93.1133
+offset_right = 148.414
+offset_bottom = 44.8867
+theme_override_font_sizes/font_size = 101
+text = "0"
+
+[node name="Gem4" type="Label" parent="Inventory"]
+offset_left = 90.4144
+offset_top = 49.9304
+offset_right = 148.414
+offset_bottom = 187.93
+theme_override_font_sizes/font_size = 101
+text = "0"
+
+[node name="Figure" type="Label" parent="Inventory"]
+offset_left = 90.4144
+offset_top = 190.275
+offset_right = 148.414
+offset_bottom = 328.275
+theme_override_font_sizes/font_size = 101
+text = "0"
 
 [node name="Shop" type="Sprite2D" parent="."]
 position = Vector2(1110.07, 504.75)
@@ -121,6 +163,7 @@ expand_icon = true
 script = ExtResource("15_wxx8k")
 
 [node name="Label" type="Label" parent="Button"]
+layout_mode = 0
 offset_left = 28.0
 offset_top = 15.0
 offset_right = 378.0
