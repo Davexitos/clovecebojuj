@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://chi633188sjr4"]
+[gd_scene load_steps=15 format=3 uid="uid://chi633188sjr4"]
 
 [ext_resource type="Script" uid="uid://c4mb73s1eltjr" path="res://Scripts/board.gd" id="1_jo01r"]
 [ext_resource type="Texture2D" uid="uid://bh8swn7ciae4m" path="res://Sprites/BoardS.png" id="2_jo01r"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dkmpg168vlo7c" path="res://Scripts/inventory_items.gd" id="8_gj8lt"]
 [ext_resource type="Script" uid="uid://db4657sf6h6cs" path="res://Scripts/cursor.gd" id="8_tvoxi"]
 [ext_resource type="Script" uid="uid://cbocqhsx05252" path="res://Scripts/gem.gd" id="9_82e4u"]
+[ext_resource type="Script" uid="uid://dtvxerclhleww" path="res://Scripts/glow.gd" id="10_82e4u"]
 [ext_resource type="Script" uid="uid://dee17nmynpuqn" path="res://Scripts/deadbody.gd" id="10_gj8lt"]
 [ext_resource type="Texture2D" uid="uid://skwruhwjoigs" path="res://Sprites/Dice.png" id="11_7uld1"]
 [ext_resource type="Texture2D" uid="uid://bjtnv86a1xbvh" path="res://Sprites/Inventory.png" id="12_wxx8k"]
@@ -62,6 +63,9 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_xudy4")
 hframes = 4
 script = ExtResource("8_tvoxi")
+
+[node name="Select" type="Sprite2D" parent="."]
+script = ExtResource("10_82e4u")
 
 [node name="Dice" type="Sprite2D" parent="."]
 position = Vector2(1089, 179)
