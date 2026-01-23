@@ -1,13 +1,10 @@
-extends Sprite2D
-
+class_name Glow
+extends TileSprite
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	hide()
-	z_index = 100
-
-func glow(x: int,y: int):
-	position.x = x
-	position.y = y
-	frame = GlobalVar.ActivePlayer
-	show()
+func _init(x: int, y: int, frm: int) -> void:
+	PosX = x
+	PosY = y
+	texture = load("res://Sprites/glow.png")
+	hframes = 5
+	frame = frm

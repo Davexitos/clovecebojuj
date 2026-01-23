@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://chi633188sjr4"]
+[gd_scene load_steps=15 format=3 uid="uid://chi633188sjr4"]
 
 [ext_resource type="Script" uid="uid://c4mb73s1eltjr" path="res://Scripts/board.gd" id="1_jo01r"]
 [ext_resource type="Texture2D" uid="uid://bh8swn7ciae4m" path="res://Sprites/BoardS.png" id="2_jo01r"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dkmpg168vlo7c" path="res://Scripts/inventory_items.gd" id="8_gj8lt"]
 [ext_resource type="Script" uid="uid://db4657sf6h6cs" path="res://Scripts/cursor.gd" id="8_tvoxi"]
 [ext_resource type="Script" uid="uid://cbocqhsx05252" path="res://Scripts/gem.gd" id="9_82e4u"]
+[ext_resource type="Script" uid="uid://dtvxerclhleww" path="res://Scripts/glow.gd" id="10_82e4u"]
 [ext_resource type="Script" uid="uid://dee17nmynpuqn" path="res://Scripts/deadbody.gd" id="10_gj8lt"]
 [ext_resource type="Texture2D" uid="uid://skwruhwjoigs" path="res://Sprites/Dice.png" id="11_7uld1"]
 [ext_resource type="Texture2D" uid="uid://bjtnv86a1xbvh" path="res://Sprites/Inventory.png" id="12_wxx8k"]
@@ -16,8 +17,8 @@
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_jo01r")
-nextTurnLimit = false
-infinityRoll = true
+ActivePlayer = null
+nextTurnLimit = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(425, 425)
@@ -65,6 +66,9 @@ texture = ExtResource("7_xudy4")
 hframes = 4
 script = ExtResource("8_tvoxi")
 
+[node name="Select" type="Sprite2D" parent="."]
+script = ExtResource("10_82e4u")
+
 [node name="Dice" type="Sprite2D" parent="."]
 position = Vector2(1089, 179)
 scale = Vector2(0.41629, 0.41629)
@@ -87,57 +91,17 @@ theme_override_font_sizes/font_size = 281
 text = "1"
 
 [node name="Inventory" type="Sprite2D" parent="."]
-position = Vector2(-263, 453)
-scale = Vector2(0.741032, 0.741033)
+position = Vector2(-245.75, 473.308)
+scale = Vector2(0.383439, 0.383439)
 texture = ExtResource("12_wxx8k")
 
 [node name="Label" type="Label" parent="Inventory"]
-offset_left = -140.391
-offset_top = -587.09
-offset_right = 101.609
-offset_bottom = -515.09
-theme_override_font_sizes/font_size = 55
+offset_left = -282.314
+offset_top = -1072.68
+offset_right = 206.686
+offset_bottom = -928.682
+theme_override_font_sizes/font_size = 105
 text = "Inventory"
-
-[node name="Gem1" type="Label" parent="Inventory"]
-offset_left = 93.1134
-offset_top = -377.851
-offset_right = 151.113
-offset_bottom = -239.851
-theme_override_font_sizes/font_size = 101
-text = "0"
-
-[node name="Gem2" type="Label" parent="Inventory"]
-offset_left = 90.4144
-offset_top = -240.205
-offset_right = 148.414
-offset_bottom = -102.205
-theme_override_font_sizes/font_size = 101
-text = "0"
-
-[node name="Gem3" type="Label" parent="Inventory"]
-offset_left = 90.4144
-offset_top = -93.1133
-offset_right = 148.414
-offset_bottom = 44.8867
-theme_override_font_sizes/font_size = 101
-text = "0"
-
-[node name="Gem4" type="Label" parent="Inventory"]
-offset_left = 90.4144
-offset_top = 49.9304
-offset_right = 148.414
-offset_bottom = 187.93
-theme_override_font_sizes/font_size = 101
-text = "0"
-
-[node name="Figure" type="Label" parent="Inventory"]
-offset_left = 90.4144
-offset_top = 190.275
-offset_right = 148.414
-offset_bottom = 328.275
-theme_override_font_sizes/font_size = 101
-text = "0"
 
 [node name="Shop" type="Sprite2D" parent="."]
 position = Vector2(1110.07, 504.75)
@@ -163,7 +127,6 @@ expand_icon = true
 script = ExtResource("15_wxx8k")
 
 [node name="Label" type="Label" parent="Button"]
-layout_mode = 0
 offset_left = 28.0
 offset_top = 15.0
 offset_right = 378.0
