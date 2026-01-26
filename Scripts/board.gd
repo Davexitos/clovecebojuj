@@ -245,7 +245,7 @@ func setFight():
 	
 	var bigestFight = 0
 	for i in range(1,len(fight)):
-		if fight[bigestFight] < fight[i] or (fight[bigestFight] == fight[i] and fight[i][0].Team == ActivePlayer):
+		if len(fight[bigestFight][1]) < len(fight[i][1]) or (len(fight[bigestFight][1]) == len(fight[i][1]) and fight[i][0][0].Team != ActivePlayer):
 			bigestFight = i
 			
 	for i in $Glow.get_children():
