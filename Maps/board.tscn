@@ -1,18 +1,30 @@
-[gd_scene load_steps=14 format=3 uid="uid://chi633188sjr4"]
+[gd_scene load_steps=18 format=3 uid="uid://chi633188sjr4"]
 
 [ext_resource type="Script" uid="uid://c4mb73s1eltjr" path="res://Scripts/board.gd" id="1_jo01r"]
 [ext_resource type="Texture2D" uid="uid://bh8swn7ciae4m" path="res://Sprites/BoardS.png" id="2_jo01r"]
 [ext_resource type="Texture2D" uid="uid://dp8dcwil4socg" path="res://Sprites/Gems.png" id="3_18uys"]
 [ext_resource type="Texture2D" uid="uid://bqpulmbq6jafv" path="res://Sprites/Cursor.png" id="7_xudy4"]
-[ext_resource type="Script" uid="uid://dkmpg168vlo7c" path="res://Scripts/inventory_items.gd" id="8_gj8lt"]
 [ext_resource type="Script" uid="uid://db4657sf6h6cs" path="res://Scripts/cursor.gd" id="8_tvoxi"]
-[ext_resource type="Script" uid="uid://cbocqhsx05252" path="res://Scripts/gem.gd" id="9_82e4u"]
-[ext_resource type="Script" uid="uid://dee17nmynpuqn" path="res://Scripts/deadbody.gd" id="10_gj8lt"]
+[ext_resource type="Texture2D" uid="uid://0mw2iamxot23" path="res://Sprites/ButtonDisable.png" id="9_8ayhb"]
+[ext_resource type="Texture2D" uid="uid://br3j5ya8dd1lw" path="res://Sprites/ButtonHover.png" id="9_gj8lt"]
+[ext_resource type="Texture2D" uid="uid://bleqiq6hkdsdx" path="res://Sprites/ButtonPresed.png" id="10_8ayhb"]
 [ext_resource type="Texture2D" uid="uid://skwruhwjoigs" path="res://Sprites/Dice.png" id="11_7uld1"]
 [ext_resource type="Texture2D" uid="uid://bjtnv86a1xbvh" path="res://Sprites/Inventory.png" id="12_wxx8k"]
+[ext_resource type="Texture2D" uid="uid://8p4bpt43k28u" path="res://Sprites/Fight.png" id="13_8sb8k"]
 [ext_resource type="Texture2D" uid="uid://bk2iaeobdr3xi" path="res://Sprites/Shop.png" id="13_qtp1v"]
 [ext_resource type="Texture2D" uid="uid://bsjsv0fjmwpf6" path="res://Sprites/Button.png" id="14_purbk"]
-[ext_resource type="Script" uid="uid://8chxqj8kv73g" path="res://Scripts/button.gd" id="15_wxx8k"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wxx8k"]
+texture = ExtResource("9_8ayhb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8sb8k"]
+texture = ExtResource("9_gj8lt")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7uld1"]
+texture = ExtResource("10_8ayhb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gj8lt"]
+texture = ExtResource("14_purbk")
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_jo01r")
@@ -39,25 +51,6 @@ frame = 3
 
 [node name="Glow" type="Node" parent="."]
 
-[node name="InventoryItems" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
-script = ExtResource("8_gj8lt")
-
-[node name="gem" type="Button" parent="InventoryItems"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-script = ExtResource("9_82e4u")
-metadata/_custom_type_script = "uid://dkmpg168vlo7c"
-
-[node name="deadbody" type="Button" parent="InventoryItems"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-script = ExtResource("10_gj8lt")
-metadata/_custom_type_script = "uid://dkmpg168vlo7c"
-
 [node name="Cursor" type="Sprite2D" parent="."]
 position = Vector2(25, 25)
 scale = Vector2(0.5, 0.5)
@@ -66,24 +59,26 @@ hframes = 4
 script = ExtResource("8_tvoxi")
 
 [node name="Dice" type="Sprite2D" parent="."]
-position = Vector2(1089, 179)
-scale = Vector2(0.41629, 0.41629)
+position = Vector2(1102, 188)
+scale = Vector2(0.85, 0.85)
 texture = ExtResource("11_7uld1")
+vframes = 5
+frame = 4
 
 [node name="Label" type="Label" parent="Dice"]
-offset_left = -144.13
-offset_top = -384.348
-offset_right = 133.87
-offset_bottom = -240.348
-theme_override_font_sizes/font_size = 105
+offset_left = -69.4118
+offset_top = -165.882
+offset_right = 75.5882
+offset_bottom = -89.8824
+theme_override_font_sizes/font_size = 50
 text = "Move"
 
 [node name="Num" type="Label" parent="Dice"]
-offset_left = -91.2826
-offset_top = -204.185
-offset_right = 117.717
-offset_bottom = 295.815
-theme_override_font_sizes/font_size = 281
+offset_left = -36.4706
+offset_top = -78.8235
+offset_right = 26.5294
+offset_bottom = 72.1765
+theme_override_font_sizes/font_size = 110
 text = "1"
 
 [node name="Inventory" type="Sprite2D" parent="."]
@@ -92,10 +87,10 @@ scale = Vector2(0.741032, 0.741033)
 texture = ExtResource("12_wxx8k")
 
 [node name="Label" type="Label" parent="Inventory"]
-offset_left = -140.391
-offset_top = -587.09
-offset_right = 101.609
-offset_bottom = -515.09
+offset_left = -130.899
+offset_top = -457.469
+offset_right = 125.101
+offset_bottom = -381.469
 theme_override_font_sizes/font_size = 55
 text = "Inventory"
 
@@ -157,18 +152,241 @@ offset_left = 909.0
 offset_top = 689.0
 offset_right = 1318.0
 offset_bottom = 831.0
-icon = ExtResource("14_purbk")
-flat = true
-expand_icon = true
-script = ExtResource("15_wxx8k")
-
-[node name="Label" type="Label" parent="Button"]
-layout_mode = 0
-offset_left = 28.0
-offset_top = 15.0
-offset_right = 378.0
-offset_bottom = 118.0
-theme_override_font_sizes/font_size = 75
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 62
+theme_override_styles/disabled = SubResource("StyleBoxTexture_wxx8k")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8sb8k")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7uld1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_gj8lt")
 text = "Next turn"
+
+[node name="Fight" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1133, 345)
+scale = Vector2(0.732717, 0.732717)
+texture = ExtResource("13_8sb8k")
+
+[node name="Player" type="Sprite2D" parent="Fight"]
+
+[node name="minus1" type="Button" parent="Fight/Player"]
+offset_left = -275.686
+offset_top = -357.573
+offset_right = -243.686
+offset_bottom = -300.573
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "-"
+flat = true
+
+[node name="minus2" type="Button" parent="Fight/Player"]
+offset_left = -226.554
+offset_top = -357.573
+offset_right = -194.554
+offset_bottom = -300.573
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "-"
+flat = true
+
+[node name="minus3" type="Button" parent="Fight/Player"]
+offset_left = -176.057
+offset_top = -357.573
+offset_right = -144.057
+offset_bottom = -300.573
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "-"
+flat = true
+
+[node name="minus4" type="Button" parent="Fight/Player"]
+offset_left = -126.925
+offset_top = -357.573
+offset_right = -94.9253
+offset_bottom = -300.573
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "-"
+flat = true
+
+[node name="plus1" type="Button" parent="Fight/Player"]
+offset_left = -275.686
+offset_top = -453.108
+offset_right = -243.686
+offset_bottom = -396.108
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "+"
+flat = true
+
+[node name="plus2" type="Button" parent="Fight/Player"]
+offset_left = -226.554
+offset_top = -453.108
+offset_right = -194.554
+offset_bottom = -396.108
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "+"
+flat = true
+
+[node name="plus3" type="Button" parent="Fight/Player"]
+offset_left = -176.057
+offset_top = -453.108
+offset_right = -144.057
+offset_bottom = -396.108
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "+"
+flat = true
+
+[node name="plus4" type="Button" parent="Fight/Player"]
+offset_left = -126.925
+offset_top = -453.108
+offset_right = -94.9253
+offset_bottom = -396.108
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "+"
+flat = true
+
+[node name="Gems" type="GridContainer" parent="Fight/Player"]
+offset_left = -273.0
+offset_top = -258.0
+offset_right = -94.0
+offset_bottom = -87.0
+columns = 4
+
+[node name="Dices" type="GridContainer" parent="Fight/Player"]
+offset_left = 1.0
+offset_top = -261.0
+offset_right = 288.0
+offset_bottom = -67.0
+
+[node name="Label" type="Label" parent="Fight/Player"]
+offset_left = -229.284
+offset_top = -94.17
+offset_right = -151.284
+offset_bottom = -1.17004
+theme_override_font_sizes/font_size = 68
+text = "+0"
+
+[node name="Player2" type="Sprite2D" parent="Fight"]
+
+[node name="minus1" type="Button" parent="Fight/Player2"]
+offset_left = -275.686
+offset_top = 382.139
+offset_right = -243.686
+offset_bottom = 439.139
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "-"
+flat = true
+
+[node name="minus2" type="Button" parent="Fight/Player2"]
+offset_left = -226.554
+offset_top = 382.139
+offset_right = -194.554
+offset_bottom = 439.139
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "-"
+flat = true
+
+[node name="minus3" type="Button" parent="Fight/Player2"]
+offset_left = -176.057
+offset_top = 382.139
+offset_right = -144.057
+offset_bottom = 439.139
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "-"
+flat = true
+
+[node name="minus4" type="Button" parent="Fight/Player2"]
+offset_left = -126.925
+offset_top = 382.139
+offset_right = -94.9253
+offset_bottom = 439.139
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "-"
+flat = true
+
+[node name="plus1" type="Button" parent="Fight/Player2"]
+offset_left = -275.686
+offset_top = 300.252
+offset_right = -243.686
+offset_bottom = 357.252
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "+"
+flat = true
+
+[node name="plus2" type="Button" parent="Fight/Player2"]
+offset_left = -226.554
+offset_top = 300.252
+offset_right = -194.554
+offset_bottom = 357.252
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "+"
+flat = true
+
+[node name="plus3" type="Button" parent="Fight/Player2"]
+offset_left = -176.057
+offset_top = 300.252
+offset_right = -144.057
+offset_bottom = 357.252
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "+"
+flat = true
+
+[node name="plus4" type="Button" parent="Fight/Player2"]
+offset_left = -126.925
+offset_top = 300.252
+offset_right = -94.9253
+offset_bottom = 357.252
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "+"
+flat = true
+
+[node name="Gems" type="GridContainer" parent="Fight/Player2"]
+offset_left = -273.0
+offset_top = 90.0757
+offset_right = -94.0
+offset_bottom = 261.076
+columns = 4
+
+[node name="Dices" type="GridContainer" parent="Fight/Player2"]
+offset_left = 1.0
+offset_top = 73.6983
+offset_right = 288.0
+offset_bottom = 267.698
+
+[node name="Label" type="Label" parent="Fight/Player2"]
+offset_left = -229.284
+offset_top = -1.36477
+offset_right = -151.284
+offset_bottom = 91.6352
+theme_override_font_sizes/font_size = 68
+text = "+0"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -5,8 +5,12 @@ enum players {blue,red,green,yelow}
 @export var nextTurnLimit = true
 @export var infinityRoll = false
 
-var getMage : bool = false
-var fight : bool = false
+var getMage := [
+	[]
+]
+var fight := [
+	[[],[]]
+]
 
 var chance: Array[float] = [40,30,20,10]
 var inventory = [
@@ -62,6 +66,7 @@ var Map = [
 func _ready() -> void:
 	GlobalVar.ActivePlayer =  ActivePlayer
 	rollDice()
+	enableDisableButton()
 	
 	for row in len(Map):
 		for col in len(Map[row]):
@@ -119,10 +124,12 @@ func deleteMarks():
 	
 
 func nextTurn():
+	GlobalVar.isFight = false
 	GlobalVar.ActivePlayer += 1
 	rollDice()
 	updateInventory()
-	glowActons()
+	actualizateContact()
+	enableDisableButton()
 	
 func _on_button_pressed() -> void:
 	next()
@@ -144,31 +151,21 @@ func move(PosX:int, PosY:int, subRoll: int):
 	GlobalVar.ActiveFigure.PosY=PosY
 	GlobalVar.Roll -= subRoll
 	$Dice/Num.text = str(GlobalVar.Roll)
-	
+	enableDisableButton()
 
 func activateMage():
-	var toRemove: Array[Figure] = []
-	for x in Figures[4]:
-		var contact : int = 0 
-		for shif in shift:
-			var newX = x.PosX +shif[X]
-			var newY = x.PosY+shif[Y]
-			if isInMap(newX, newY,false):
-				contact+=1
-				var rnd = randf()
-				var nextChance = 0.0
-				for y in len(chance):
-					nextChance += chance[y]/100
-					if rnd < nextChance:
-						addGem(y)
-						break
-		if contact > 0:
-			toRemove.append(x)
-			
-	for i in toRemove:
-		Map[i.PosY][i.PosX] = 0
-		Figures[4].erase(i)
-		$Figure.remove_child(i)
+	for x in getMage:
+		for i in x[1]:
+			var rnd = randf()
+			var nextChance = 0.0
+			for y in len(chance):
+				nextChance += chance[y]/100
+				if rnd < nextChance:
+					addGem(y)
+					break
+		Map[x[0].PosY][x[0].PosX] = 0
+		Figures[4].erase(x[0])
+		$Figure.remove_child(x[0])
 
 func addGem(val):
 	inventory[GlobalVar.ActivePlayer][val] += 1
@@ -180,44 +177,80 @@ func updateInventory():
 	$Inventory/Gem3.text = str(inventory[GlobalVar.ActivePlayer][2])
 	$Inventory/Gem4.text = str(inventory[GlobalVar.ActivePlayer][3])
 
-func glowActons():
-	fight = false
-	getMage = false
+func actualizateContact():
+	if GlobalVar.isFight:
+		return
+	
+	fight.clear()
+	getMage.clear()
 	
 	for i in $Glow.get_children():
 		$Glow.remove_child(i)
 		
-	for i in Figures:
-		for x in i:
+	for team in len(Figures):
+		for x in Figures[team]:
+			var contacts : Array[Figure]= []
+			var contactsCount := 0
 			for shif in shift:
 				var newX = x.PosX +shif[X]
 				var newY = x.PosY+shif[Y]
-				if isInMap(newX, newY,false) and Map[newY][newX].Team != x.Team:
-					$"Glow".add_child(Glow.new(x.PosX,x.PosY,x.Team))
-					if x.Team == 4:
-						getMage = true
+				if isInMap(newX, newY,false) and Map[newY][newX].Team != team:
+					$"Glow".add_child(Glow.new(x.PosX,x.PosY,team))
+					if team == 4:
+						contactsCount += 1
 					else:
-						fight = true
-	if getMage:
-		$Button/Label.text = "Collect"
-	elif fight:
-		$Button/Label.text = "Fight"
+						contacts.append(Map[newY][newX])
+						
+			if !contacts.is_empty():
+				fight.append([[x],contacts])
+			elif contactsCount != 0:
+				getMage.append([x,contactsCount])
+				
+	if !getMage.is_empty():
+		$Button.text = "Collect"
+	elif !fight.is_empty():
+		$Button.text = "Fight"
 	else:
-		$Button/Label.text = "Next Turn"
+		$Button.text = "Next Turn"
+	
+	print()
+	print(getMage)
+	print(fight)
 
 func next():
-	deleteMarks()
-	if GlobalVar.Roll > 0 and nextTurnLimit:
+	if !enableDisableButton():
 		return
-	elif getMage:
+	deleteMarks()
+	if !getMage.is_empty():
 		activateMage()
-		getMage = false
-	elif fight:
+	elif !fight.is_empty():
 		setFight()
-		fight = false
 	else:
 		nextTurn() 
-	glowActons()
+	actualizateContact()
+	
+func enableDisableButton() -> bool:
+	if GlobalVar.Roll > 0 and nextTurnLimit:
+		$Button.disabled = true
+		return false
+	else:
+		$Button.disabled = false
+		return true
 
 func setFight():
-	pass
+	GlobalVar.isFight = true
+	$Dice.visible = false
+	$Shop.visible = false
+	$Fight.visible = true
+	
+	var bigestFight = 0
+	for i in range(1,len(fight)):
+		if fight[bigestFight] < fight[i] or (fight[bigestFight] == fight[i] and fight[i][0].Team == ActivePlayer):
+			bigestFight = i
+			
+	for i in $Glow.get_children():
+		$Glow.remove_child(i)
+	
+	for i in fight[bigestFight]:
+		for x in i:
+			$"Glow".add_child(Glow.new(x.PosX,x.PosY,x.Team))

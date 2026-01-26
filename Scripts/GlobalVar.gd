@@ -1,5 +1,6 @@
 extends Node
 
+var isFight = false
 var ActivePlayer := -1:
 	set(val):
 		if val > 3:
