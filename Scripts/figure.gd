@@ -8,9 +8,9 @@ var Team := -1
 var newG :Glow
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Click") and cursor.visible  and GlobalVar.ActivePlayer == Team and position == cursor.position:
+	if event.is_action_pressed("Click") and !GlobalVar.isFight and cursor.visible  and GlobalVar.ActivePlayer == Team and position == cursor.position:
 		board.deleteMarks()
-		board.glowActons()
+		board.actualizateContact()
 		
 		if GlobalVar.ActiveFigure==self:
 			GlobalVar.ActiveFigure=null
