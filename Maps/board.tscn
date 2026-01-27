@@ -28,8 +28,6 @@ texture = ExtResource("14_purbk")
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_jo01r")
-nextTurnLimit = false
-infinityRoll = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(425, 425)

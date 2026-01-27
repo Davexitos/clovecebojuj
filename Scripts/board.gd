@@ -212,10 +212,6 @@ func actualizateContact():
 		$Button.text = "Fight"
 	else:
 		$Button.text = "Next Turn"
-	
-	print()
-	print(getMage)
-	print(fight)
 
 func next():
 	if !enableDisableButton():
