@@ -1,5 +1,6 @@
 extends Node
 
+var scale : float= 1.0
 var isFight = false
 var ActivePlayer := -1:
 	set(val):
@@ -7,7 +8,7 @@ var ActivePlayer := -1:
 			ActivePlayer = 0
 		else:
 			ActivePlayer = val
-		$"../Board/Cursor".nextTurn(ActivePlayer)
+		$"../Scene/Board/Cursor".nextTurn(ActivePlayer)
 
 var Roll :int
 var ActiveFigure: Figure

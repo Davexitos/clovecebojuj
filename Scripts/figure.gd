@@ -9,7 +9,7 @@ var newG :Glow
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Click") and !GlobalVar.isFight and GlobalVar.ActivePlayer == Team:
-		var clickPos = Vector2(floor(get_global_mouse_position().x/50)*50 + 25,floor(get_global_mouse_position().y/50)*50 + 25)
+		var clickPos = round(get_global_mouse_position()/(50*GlobalVar.scale))*50.0
 		if clickPos == position:
 			board.deleteMarks()
 			board.actualizateContact()
