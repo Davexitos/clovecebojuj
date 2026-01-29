@@ -19,6 +19,7 @@ func _init(posX: int, posY: int, val :int) -> void:
 	add_child(num)
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Click") and $"../../Cursor".visible:
-		if position == $"../../Cursor".position:
+	if event.is_action_pressed("Click"):
+		var clickPos = round(get_global_mouse_position()/(50*GlobalVar.scale))*50.0
+		if clickPos == position:
 			$"../../../Board".move(PosX,PosY,Value)

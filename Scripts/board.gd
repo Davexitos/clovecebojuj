@@ -5,12 +5,9 @@ enum players {blue,red,green,yelow}
 @export var nextTurnLimit = true
 @export var infinityRoll = false
 
-var getMage := [
-	[]
-]
-var fight := [
-	[[],[]]
-]
+var getMage := []
+var fight := []
+var fightTeam = []
 
 var chance: Array[float] = [40,30,20,10]
 var inventory = [
@@ -64,6 +61,9 @@ var Map = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	get_tree().get_root().size_changed.connect(resize)
+	resize()
+	
 	GlobalVar.ActivePlayer =  ActivePlayer
 	rollDice()
 	enableDisableButton()
@@ -202,7 +202,10 @@ func actualizateContact():
 						contacts.append(Map[newY][newX])
 						
 			if !contacts.is_empty():
-				fight.append([[x],contacts])
+				var newFight: Array[Figure]= []
+				newFight.append(x)
+				newFight.append_array(contacts)
+				fight.append(newFight)
 			elif contactsCount != 0:
 				getMage.append([x,contactsCount])
 				
@@ -212,10 +215,6 @@ func actualizateContact():
 		$Button.text = "Fight"
 	else:
 		$Button.text = "Next Turn"
-	
-	print()
-	print(getMage)
-	print(fight)
 
 func next():
 	if !enableDisableButton():
@@ -242,15 +241,57 @@ func setFight():
 	$Dice.visible = false
 	$Shop.visible = false
 	$Fight.visible = true
+	$Fight/Player2/Gems.visible = false
+	
+	fightTeam.clear()
+	fightTeam.append(GlobalVar.ActivePlayer)
 	
 	var bigestFight = 0
 	for i in range(1,len(fight)):
-		if len(fight[bigestFight][1]) < len(fight[i][1]) or (len(fight[bigestFight][1]) == len(fight[i][1]) and fight[i][0][0].Team != ActivePlayer):
+		
+		if len(fight[bigestFight]) < len(fight[i]) or (len(fight[bigestFight]) <= len(fight[i]) and fight[i][0].Team != GlobalVar.ActivePlayer):
 			bigestFight = i
 			
 	for i in $Glow.get_children():
 		$Glow.remove_child(i)
 	
 	for i in fight[bigestFight]:
-		for x in i:
-			$"Glow".add_child(Glow.new(x.PosX,x.PosY,x.Team))
+		$"Glow".add_child(Glow.new(i.PosX,i.PosY,i.Team))
+		if !fightTeam.has(i.Team):
+			fightTeam.append(i.Team)
+		
+	var dice = 0
+	var dice2 = 0
+	for i in len(fightTeam):
+		for x in fight[bigestFight]:
+			if fightTeam[i] != x.Team:
+				continue
+			
+			if i == 0:
+				var prefab = preload("res://Prefab/DiceContainer.tscn").instantiate()
+				prefab.get_child(0).get_child(0).frame = fightTeam[i]
+				$Fight/Player/Dices.add_child(prefab)
+				dice += 1
+				$Fight/Player/Dices.columns = clamp(dice,1,4)
+
+			else:
+				var prefab = preload("res://Prefab/DiceContainer.tscn").instantiate()
+				prefab.get_child(0).get_child(0).frame = fightTeam[i]
+				$Fight/Player2/Dices.add_child(prefab)
+				dice2 += 1
+				$Fight/Player2/Dices.columns = clamp(dice2,1,4)
+	
+	for i in len(inventory[GlobalVar.ActivePlayer]):
+		if inventory[GlobalVar.ActivePlayer][i] > 0:
+			$Fight/Player/Gems.get_child(i+1).get_child(0).disabled = false
+
+func resize():
+	var x = DisplayServer.window_get_size().x
+	var y = DisplayServer.window_get_size().y
+	
+	if x/16 > y/9:
+		scale = Vector2(y/1080.0,y/1080.0)
+	else:
+		scale = Vector2(x/1920.0,x/1920.0)
+		
+	GlobalVar.scale = scale.x
