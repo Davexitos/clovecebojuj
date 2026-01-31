@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://chi633188sjr4"]
+[gd_scene format=3 uid="uid://chi633188sjr4"]
 
 [ext_resource type="Script" uid="uid://c4mb73s1eltjr" path="res://Scripts/board.gd" id="1_jo01r"]
 [ext_resource type="Texture2D" uid="uid://bh8swn7ciae4m" path="res://Sprites/BoardS.png" id="2_jo01r"]
@@ -12,60 +12,59 @@
 [ext_resource type="Texture2D" uid="uid://bjtnv86a1xbvh" path="res://Sprites/Inventory.png" id="12_wxx8k"]
 [ext_resource type="Texture2D" uid="uid://8p4bpt43k28u" path="res://Sprites/Fight.png" id="13_8sb8k"]
 [ext_resource type="Texture2D" uid="uid://bk2iaeobdr3xi" path="res://Sprites/Shop.png" id="13_qtp1v"]
-[ext_resource type="PackedScene" uid="uid://cot8ut8oy0a2k" path="res://Prefab/GemButton.tscn" id="14_7uld1"]
 [ext_resource type="Texture2D" uid="uid://bsjsv0fjmwpf6" path="res://Sprites/Button.png" id="14_purbk"]
 [ext_resource type="Texture2D" uid="uid://domukvkmhd8o6" path="res://Sprites/Line.png" id="15_wxx8k"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wxx8k"]
-texture = ExtResource("9_8ayhb")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8sb8k"]
-texture = ExtResource("9_gj8lt")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7uld1"]
-texture = ExtResource("10_8ayhb")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gj8lt"]
 texture = ExtResource("14_purbk")
 
-[node name="Scene" type="Node2D"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7uld1"]
+texture = ExtResource("10_8ayhb")
 
-[node name="Board" type="Node2D" parent="."]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8sb8k"]
+texture = ExtResource("9_gj8lt")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wxx8k"]
+texture = ExtResource("9_8ayhb")
+
+[node name="Scene" type="Node2D" unique_id=2097204935]
+
+[node name="Board" type="Node2D" parent="." unique_id=1684131742]
 script = ExtResource("1_jo01r")
 nextTurnLimit = false
 infinityRoll = true
 
-[node name="Camera2D" type="Camera2D" parent="Board"]
+[node name="Camera2D" type="Camera2D" parent="Board" unique_id=1544271469]
 
-[node name="BoardS" type="Sprite2D" parent="Board"]
+[node name="BoardS" type="Sprite2D" parent="Board" unique_id=1777159859]
 texture = ExtResource("2_jo01r")
 
-[node name="Colectible" type="Sprite2D" parent="Board"]
+[node name="Colectible" type="Sprite2D" parent="Board" unique_id=1248501982]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_18uys")
 hframes = 4
 frame = 3
 
-[node name="Figure" type="Node2D" parent="Board"]
+[node name="Figure" type="Node2D" parent="Board" unique_id=995776848]
 
-[node name="Marks" type="Node2D" parent="Board"]
+[node name="Marks" type="Node2D" parent="Board" unique_id=1137643094]
 
-[node name="Glow" type="Node2D" parent="Board"]
+[node name="Glow" type="Node2D" parent="Board" unique_id=1892371882]
 
-[node name="Cursor" type="Sprite2D" parent="Board"]
+[node name="Cursor" type="Sprite2D" parent="Board" unique_id=1727545094]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_xudy4")
 hframes = 4
 script = ExtResource("8_tvoxi")
 
-[node name="Dice" type="Sprite2D" parent="Board"]
+[node name="Dice" type="Sprite2D" parent="Board" unique_id=1915012571]
 position = Vector2(677, -237)
 scale = Vector2(0.85, 0.85)
 texture = ExtResource("11_7uld1")
 vframes = 5
 frame = 4
 
-[node name="Label" type="Label" parent="Board/Dice"]
+[node name="Label" type="Label" parent="Board/Dice" unique_id=1478782753]
 offset_left = -69.4118
 offset_top = -165.882
 offset_right = 75.5882
@@ -73,7 +72,7 @@ offset_bottom = -89.8824
 theme_override_font_sizes/font_size = 50
 text = "Move"
 
-[node name="Num" type="Label" parent="Board/Dice"]
+[node name="Num" type="Label" parent="Board/Dice" unique_id=1196563498]
 offset_left = -36.4706
 offset_top = -78.8235
 offset_right = 26.5294
@@ -81,12 +80,12 @@ offset_bottom = 72.1765
 theme_override_font_sizes/font_size = 110
 text = "1"
 
-[node name="Inventory" type="Sprite2D" parent="Board"]
+[node name="Inventory" type="Sprite2D" parent="Board" unique_id=1966686835]
 position = Vector2(-688, 28)
 scale = Vector2(0.741032, 0.741033)
 texture = ExtResource("12_wxx8k")
 
-[node name="Label" type="Label" parent="Board/Inventory"]
+[node name="Label" type="Label" parent="Board/Inventory" unique_id=1950007405]
 offset_left = -130.899
 offset_top = -457.469
 offset_right = 125.101
@@ -94,7 +93,7 @@ offset_bottom = -381.469
 theme_override_font_sizes/font_size = 55
 text = "Inventory"
 
-[node name="Gem1" type="Label" parent="Board/Inventory"]
+[node name="Gem1" type="Label" parent="Board/Inventory" unique_id=1559147335]
 offset_left = 93.1134
 offset_top = -377.851
 offset_right = 151.113
@@ -102,7 +101,7 @@ offset_bottom = -239.851
 theme_override_font_sizes/font_size = 101
 text = "0"
 
-[node name="Gem2" type="Label" parent="Board/Inventory"]
+[node name="Gem2" type="Label" parent="Board/Inventory" unique_id=1270576048]
 offset_left = 90.4144
 offset_top = -240.205
 offset_right = 148.414
@@ -110,7 +109,7 @@ offset_bottom = -102.205
 theme_override_font_sizes/font_size = 101
 text = "0"
 
-[node name="Gem3" type="Label" parent="Board/Inventory"]
+[node name="Gem3" type="Label" parent="Board/Inventory" unique_id=1874947910]
 offset_left = 90.4144
 offset_top = -93.1133
 offset_right = 148.414
@@ -118,7 +117,7 @@ offset_bottom = 44.8867
 theme_override_font_sizes/font_size = 101
 text = "0"
 
-[node name="Gem4" type="Label" parent="Board/Inventory"]
+[node name="Gem4" type="Label" parent="Board/Inventory" unique_id=1463630113]
 offset_left = 90.4144
 offset_top = 49.9304
 offset_right = 148.414
@@ -126,7 +125,7 @@ offset_bottom = 187.93
 theme_override_font_sizes/font_size = 101
 text = "0"
 
-[node name="Figure" type="Label" parent="Board/Inventory"]
+[node name="Figure" type="Label" parent="Board/Inventory" unique_id=256059198]
 offset_left = 90.4144
 offset_top = 190.275
 offset_right = 148.414
@@ -134,12 +133,12 @@ offset_bottom = 328.275
 theme_override_font_sizes/font_size = 101
 text = "0"
 
-[node name="Shop" type="Sprite2D" parent="Board"]
+[node name="Shop" type="Sprite2D" parent="Board" unique_id=1481599060]
 position = Vector2(685.07, 79.75)
 scale = Vector2(0.426011, 0.361207)
 texture = ExtResource("13_qtp1v")
 
-[node name="Label" type="Label" parent="Board/Shop"]
+[node name="Label" type="Label" parent="Board/Shop" unique_id=1836892135]
 offset_left = -150.397
 offset_top = -447.804
 offset_right = 103.603
@@ -147,7 +146,7 @@ offset_bottom = -303.804
 theme_override_font_sizes/font_size = 105
 text = "Shop"
 
-[node name="Button" type="Button" parent="Board"]
+[node name="Button" type="Button" parent="Board" unique_id=962600705]
 offset_left = 484.0
 offset_top = 264.0
 offset_right = 893.0
@@ -155,47 +154,44 @@ offset_bottom = 406.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 62
-theme_override_styles/disabled = SubResource("StyleBoxTexture_wxx8k")
-theme_override_styles/hover = SubResource("StyleBoxTexture_8sb8k")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_7uld1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_gj8lt")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7uld1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8sb8k")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_wxx8k")
 text = "Next turn"
 
-[node name="Fight" type="Sprite2D" parent="Board"]
+[node name="Fight" type="Sprite2D" parent="Board" unique_id=367502171]
 visible = false
 position = Vector2(708, 25)
 scale = Vector2(0.732717, 0.732717)
 texture = ExtResource("13_8sb8k")
 
-[node name="Player" type="Node2D" parent="Board/Fight"]
+[node name="Player" type="Node2D" parent="Board/Fight" unique_id=747340311]
 
-[node name="Dices" type="GridContainer" parent="Board/Fight/Player"]
+[node name="Dices" type="GridContainer" parent="Board/Fight/Player" unique_id=206548109]
 offset_left = -20.0001
 offset_top = -366.0
 offset_right = 333.0
 offset_bottom = -52.0
 
-[node name="Gems" type="Node2D" parent="Board/Fight/Player"]
+[node name="Gems" type="Node2D" parent="Board/Fight/Player" unique_id=1616783047]
 position = Vector2(-966.267, 109.183)
 scale = Vector2(1.36478, 1.36478)
 
-[node name="Gems" type="GridContainer" parent="Board/Fight/Player/Gems"]
-offset_left = 496.0
+[node name="Gems" type="GridContainer" parent="Board/Fight/Player/Gems" unique_id=1880664253]
+offset_left = 490.0
 offset_top = -274.0
-offset_right = 652.0
+offset_right = 662.0
 offset_bottom = 4.0
 columns = 4
 
-[node name="GemButton" parent="Board/Fight/Player/Gems/Gems" instance=ExtResource("14_7uld1")]
-layout_mode = 2
-
-[node name="G1" type="Sprite2D" parent="Board/Fight/Player/Gems"]
+[node name="G1" type="Sprite2D" parent="Board/Fight/Player/Gems" unique_id=824130279]
 position = Vector2(579.5, -479.5)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_18uys")
 hframes = 4
 
-[node name="plus" type="Button" parent="Board/Fight/Player/Gems/G1"]
+[node name="plus" type="Button" parent="Board/Fight/Player/Gems/G1" unique_id=400985012]
 offset_left = -131.25
 offset_top = -31.25
 offset_right = -54.25
@@ -206,7 +202,7 @@ disabled = true
 text = "➕"
 flat = true
 
-[node name="minus" type="Button" parent="Board/Fight/Player/Gems/G1"]
+[node name="minus" type="Button" parent="Board/Fight/Player/Gems/G1" unique_id=2112798255]
 offset_left = 60.4167
 offset_top = -31.25
 offset_right = 137.417
@@ -217,14 +213,14 @@ disabled = true
 text = "➖"
 flat = true
 
-[node name="G2" type="Sprite2D" parent="Board/Fight/Player/Gems"]
+[node name="G2" type="Sprite2D" parent="Board/Fight/Player/Gems" unique_id=1877500301]
 position = Vector2(833.5, -479.5)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_18uys")
 hframes = 4
 frame = 1
 
-[node name="plus" type="Button" parent="Board/Fight/Player/Gems/G2"]
+[node name="plus" type="Button" parent="Board/Fight/Player/Gems/G2" unique_id=2052811940]
 offset_left = -131.25
 offset_top = -31.25
 offset_right = -54.25
@@ -235,7 +231,7 @@ disabled = true
 text = "➕"
 flat = true
 
-[node name="minus" type="Button" parent="Board/Fight/Player/Gems/G2"]
+[node name="minus" type="Button" parent="Board/Fight/Player/Gems/G2" unique_id=915586025]
 offset_left = 60.4167
 offset_top = -31.25
 offset_right = 137.417
@@ -246,14 +242,14 @@ disabled = true
 text = "➖"
 flat = true
 
-[node name="G3" type="Sprite2D" parent="Board/Fight/Player/Gems"]
+[node name="G3" type="Sprite2D" parent="Board/Fight/Player/Gems" unique_id=2138138204]
 position = Vector2(579.5, -374.5)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_18uys")
 hframes = 4
 frame = 2
 
-[node name="plus" type="Button" parent="Board/Fight/Player/Gems/G3"]
+[node name="plus" type="Button" parent="Board/Fight/Player/Gems/G3" unique_id=723644387]
 offset_left = -131.25
 offset_top = -31.25
 offset_right = -54.25
@@ -264,7 +260,7 @@ disabled = true
 text = "➕"
 flat = true
 
-[node name="minus" type="Button" parent="Board/Fight/Player/Gems/G3"]
+[node name="minus" type="Button" parent="Board/Fight/Player/Gems/G3" unique_id=1137494013]
 offset_left = 60.4167
 offset_top = -31.25
 offset_right = 137.417
@@ -275,14 +271,14 @@ disabled = true
 text = "➖"
 flat = true
 
-[node name="G4" type="Sprite2D" parent="Board/Fight/Player/Gems"]
+[node name="G4" type="Sprite2D" parent="Board/Fight/Player/Gems" unique_id=1168725828]
 position = Vector2(834.5, -374.5)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_18uys")
 hframes = 4
 frame = 3
 
-[node name="plus" type="Button" parent="Board/Fight/Player/Gems/G4"]
+[node name="plus" type="Button" parent="Board/Fight/Player/Gems/G4" unique_id=1935466552]
 offset_left = -131.25
 offset_top = -31.25
 offset_right = -54.25
@@ -293,7 +289,7 @@ disabled = true
 text = "➕"
 flat = true
 
-[node name="minus" type="Button" parent="Board/Fight/Player/Gems/G4"]
+[node name="minus" type="Button" parent="Board/Fight/Player/Gems/G4" unique_id=1601045980]
 offset_left = 60.4167
 offset_top = -31.25
 offset_right = 137.417
@@ -304,31 +300,31 @@ disabled = true
 text = "➖"
 flat = true
 
-[node name="Player2" type="Node2D" parent="Board/Fight"]
+[node name="Player2" type="Node2D" parent="Board/Fight" unique_id=1231343892]
 
-[node name="Dices" type="GridContainer" parent="Board/Fight/Player2"]
+[node name="Dices" type="GridContainer" parent="Board/Fight/Player2" unique_id=1541022605]
 offset_left = 1.0
 offset_top = 73.6983
 offset_right = 288.0
 offset_bottom = 267.698
 
-[node name="Gems" type="Node2D" parent="Board/Fight/Player2"]
+[node name="Gems" type="Node2D" parent="Board/Fight/Player2" unique_id=703426676]
 scale = Vector2(1.365, 1.365)
 
-[node name="Gems" type="GridContainer" parent="Board/Fight/Player2/Gems"]
+[node name="Gems" type="GridContainer" parent="Board/Fight/Player2/Gems" unique_id=1762065242]
 offset_left = -201.0
 offset_top = -73.0
 offset_right = -61.0
 offset_bottom = 193.0
 columns = 4
 
-[node name="G1" type="Sprite2D" parent="Board/Fight/Player2/Gems"]
+[node name="G1" type="Sprite2D" parent="Board/Fight/Player2/Gems" unique_id=274878410]
 position = Vector2(-129.474, 282.46)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_18uys")
 hframes = 4
 
-[node name="plus" type="Button" parent="Board/Fight/Player2/Gems/G1"]
+[node name="plus" type="Button" parent="Board/Fight/Player2/Gems/G1" unique_id=362283478]
 offset_left = -131.25
 offset_top = -31.25
 offset_right = -54.25
@@ -340,7 +336,7 @@ text = "➕"
 flat = true
 metadata/_edit_use_anchors_ = true
 
-[node name="minus" type="Button" parent="Board/Fight/Player2/Gems/G1"]
+[node name="minus" type="Button" parent="Board/Fight/Player2/Gems/G1" unique_id=503552220]
 offset_left = 60.4167
 offset_top = -31.25
 offset_right = 137.417
@@ -352,14 +348,14 @@ text = "➖"
 flat = true
 metadata/_edit_use_anchors_ = true
 
-[node name="G2" type="Sprite2D" parent="Board/Fight/Player2/Gems"]
+[node name="G2" type="Sprite2D" parent="Board/Fight/Player2/Gems" unique_id=1897203292]
 position = Vector2(124.526, 282.46)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_18uys")
 hframes = 4
 frame = 1
 
-[node name="plus" type="Button" parent="Board/Fight/Player2/Gems/G2"]
+[node name="plus" type="Button" parent="Board/Fight/Player2/Gems/G2" unique_id=1415715935]
 offset_left = -131.25
 offset_top = -31.25
 offset_right = -54.25
@@ -371,7 +367,7 @@ text = "➕"
 flat = true
 metadata/_edit_use_anchors_ = true
 
-[node name="minus" type="Button" parent="Board/Fight/Player2/Gems/G2"]
+[node name="minus" type="Button" parent="Board/Fight/Player2/Gems/G2" unique_id=204869244]
 offset_left = 60.4167
 offset_top = -31.25
 offset_right = 137.417
@@ -383,14 +379,14 @@ text = "➖"
 flat = true
 metadata/_edit_use_anchors_ = true
 
-[node name="G3" type="Sprite2D" parent="Board/Fight/Player2/Gems"]
+[node name="G3" type="Sprite2D" parent="Board/Fight/Player2/Gems" unique_id=1318884476]
 position = Vector2(-129.474, 387.46)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_18uys")
 hframes = 4
 frame = 2
 
-[node name="plus" type="Button" parent="Board/Fight/Player2/Gems/G3"]
+[node name="plus" type="Button" parent="Board/Fight/Player2/Gems/G3" unique_id=490848707]
 offset_left = -131.25
 offset_top = -31.25
 offset_right = -54.25
@@ -402,7 +398,7 @@ text = "➕"
 flat = true
 metadata/_edit_use_anchors_ = true
 
-[node name="minus" type="Button" parent="Board/Fight/Player2/Gems/G3"]
+[node name="minus" type="Button" parent="Board/Fight/Player2/Gems/G3" unique_id=1500910160]
 offset_left = 60.4167
 offset_top = -31.25
 offset_right = 137.417
@@ -414,14 +410,14 @@ text = "➖"
 flat = true
 metadata/_edit_use_anchors_ = true
 
-[node name="G4" type="Sprite2D" parent="Board/Fight/Player2/Gems"]
+[node name="G4" type="Sprite2D" parent="Board/Fight/Player2/Gems" unique_id=1415140859]
 position = Vector2(125.526, 387.46)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_18uys")
 hframes = 4
 frame = 3
 
-[node name="plus" type="Button" parent="Board/Fight/Player2/Gems/G4"]
+[node name="plus" type="Button" parent="Board/Fight/Player2/Gems/G4" unique_id=1080703418]
 offset_left = -131.25
 offset_top = -31.25
 offset_right = -54.25
@@ -433,7 +429,7 @@ text = "➕"
 flat = true
 metadata/_edit_use_anchors_ = true
 
-[node name="minus" type="Button" parent="Board/Fight/Player2/Gems/G4"]
+[node name="minus" type="Button" parent="Board/Fight/Player2/Gems/G4" unique_id=1421777483]
 offset_left = 60.4167
 offset_top = -31.25
 offset_right = 137.417
@@ -445,11 +441,11 @@ text = "➖"
 flat = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Count" type="Sprite2D" parent="Board/Fight"]
+[node name="Count" type="Sprite2D" parent="Board/Fight" unique_id=1242816126]
 position = Vector2(-173.327, 197.894)
 texture = ExtResource("15_wxx8k")
 
-[node name="PL1" type="Label" parent="Board/Fight/Count"]
+[node name="PL1" type="Label" parent="Board/Fight/Count" unique_id=2086746225]
 offset_left = -55.9564
 offset_top = -91.4405
 offset_right = 22.0436
@@ -457,7 +453,7 @@ offset_bottom = 1.55947
 theme_override_font_sizes/font_size = 68
 text = "+0"
 
-[node name="PL2" type="Label" parent="Board/Fight/Count"]
+[node name="PL2" type="Label" parent="Board/Fight/Count" unique_id=1991506163]
 offset_left = -55.9564
 offset_top = 1.36472
 offset_right = 22.0436
@@ -466,3 +462,19 @@ theme_override_font_sizes/font_size = 68
 text = "+0"
 
 [connection signal="pressed" from="Board/Button" to="Board" method="_on_button_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G1/plus" to="Board" method="_1_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G1/minus" to="Board" method="_1_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G2/plus" to="Board" method="_2_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G2/minus" to="Board" method="_2_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G3/plus" to="Board" method="_3_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G3/minus" to="Board" method="_3_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G4/plus" to="Board" method="_4_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G4/minus" to="Board" method="_4_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G1/plus" to="Board" method="_1_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G1/minus" to="Board" method="_2_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G2/plus" to="Board" method="_2_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G2/minus" to="Board" method="_2_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G3/plus" to="Board" method="_3_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G3/minus" to="Board" method="_3_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G4/plus" to="Board" method="_4_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G4/minus" to="Board" method="_4_minus_pressed"]
