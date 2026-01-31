@@ -1,15 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cot8ut8oy0a2k"]
+[gd_scene load_steps=2 format=3 uid="uid://cot8ut8oy0a2k"]
 
 [ext_resource type="Texture2D" uid="uid://dp8dcwil4socg" path="res://Sprites/Gems.png" id="1_8r6t0"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1wedx"]
-
-[node name="GemButton" type="Button"]
-clip_contents = true
+[node name="ReferenceRect" type="ReferenceRect"]
 custom_minimum_size = Vector2(40, 40)
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_1wedx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(20, 20)
