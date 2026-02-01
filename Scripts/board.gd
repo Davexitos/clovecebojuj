@@ -5,11 +5,12 @@ enum players {blue,red,green,yelow}
 @export var nextTurnLimit = true
 @export var infinityRoll = false
 
+var gemsCount = [0,0]
 var getMage := []
 var fight := []
 var fightTeam = []
-var fightTeamReady : Array[bool]= []
-var fightActiveTeam = 0
+var fightTeamReady : Array[bool]= [false,false]
+var fightActiveTeam = 0 								##mess in names ActivePlayer not team
 var gemsInFight = [
 	[[],[],[],[]],
 	[[],[],[],[]]
@@ -229,7 +230,7 @@ func next():
 	if !getMage.is_empty():
 		activateMage()
 	elif !fight.is_empty():
-		if fightTeamReady.is_empty():
+		if GlobalVar.isFight == false:
 			setFight()
 		else:
 			var isReady = true
@@ -296,18 +297,26 @@ func setFight():
 				$Fight/Player2/Dices.add_child(prefab)
 				dice2 += 1
 				$Fight/Player2/Dices.columns = clamp(dice2,1,4)
-		fightTeamReady.append(false)
-	for i in len(inventory[GlobalVar.ActivePlayer]):
-		if inventory[GlobalVar.ActivePlayer][i] > 0:
-			$Fight/Player/Gems.get_child(i+1).get_child(0).disabled = false
-	$Button.text = "Ready"
+	enableGemsAdd(0)
+
+func enableGemsAdd(pl):
+	var gems = $Fight/Player/Gems
+	if pl != 0:
+		gems = $Fight/Player2/Gems
 	
+	for i in 4:
+		gems.get_child(i+1).get_child(1).disabled = true
+		if inventory[fightTeam[pl]][i] > 0:
+			gems.get_child(i+1).get_child(0).disabled = false
+		else:
+			gems.get_child(i+1).get_child(0).disabled = true
+	$Button.text = "Ready"
 
 func resize():
 	var x = DisplayServer.window_get_size().x
 	var y = DisplayServer.window_get_size().y
 	
-	if x/16 > y/9:
+	if x/16.0 > y/9.0:
 		scale = Vector2(y/1080.0,y/1080.0)
 	else:
 		scale = Vector2(x/1920.0,x/1920.0)
@@ -343,49 +352,85 @@ func rollFight():
 	pass
 
 func nextFightTurn():
-	if !gemsInFight[fightActiveTeam].is_empty():
-		for i in fightTeamReady:
-			i = false
-	fightTeamReady[fightActiveTeam] = true
+	var pl = clamp(fightActiveTeam,0,1)
+	
+	for i in len(gemsInFight[pl]):
+		gemsCount[pl] += len(gemsInFight[pl][i]) * (i+1)
+	
+	if gemsInFight[pl] != [[],[],[],[]]:
+		for i in len(fightTeamReady):
+			fightTeamReady[i] = false
+	fightTeamReady[pl] = true
+	
+	var isReady = true
+	for i in fightTeamReady:
+		if !i:
+			isReady = false
+	if isReady:
+		$Button.text = "Fight"
+		$Fight/Player/Gems.visible = false
+		$Fight/Player2/Gems.visible = false
+		$Fight/Count.position = Vector2(-173.327,-0)
+		$Fight.position = Vector2(708.0,-81)
+		return
 	
 	fightActiveTeam += 1
 	if fightActiveTeam >= len(fightTeam):
 		fightActiveTeam = 0
 		$Fight/Player/Gems.visible = true
 		$Fight/Player2/Gems.visible = false
-		$Fight/Count.position = Vector2(-173.327,197.894)
+		$Fight/Count.position = Vector2(-173.327,200)
 		$Fight.position = Vector2(708.0,25.0)
 	else:
 		$Fight/Player/Gems.visible = false
 		$Fight/Player2/Gems.visible = true
-		$Fight/Count.position = Vector2(-173.327,-199.258)
+		$Fight/Count.position = Vector2(-173.327,-200)
 		$Fight.position = Vector2(708.0,-187.0)
 		
+
+	gemsInFight = [
+	[[],[],[],[]],
+	[[],[],[],[]]
+]
+	
+	enableGemsAdd(fightActiveTeam)
 	updateInventory(fightTeam[fightActiveTeam])
 	
 	
 func gemToFight(val:int, plus:bool):
+	var gems = $Fight/Player2/Gems
+	var countLabel = $Fight/Count/PL2
+	var Pl = 1
+	
 	if fightActiveTeam == 0:
-		if plus:
-			var prefab = preload("res://Prefab/GemButton.tscn").instantiate()
-			prefab.get_child(0).frame = val
-			$Fight/Player/Gems/Gems.add_child(prefab)
-			gemsInFight[0][val].append(prefab)
-			inventory[fightTeam[fightActiveTeam]][val] -= 1
-			if inventory[fightTeam[fightActiveTeam]][val] <= 0:
-				$Fight/Player/Gems.get_child(val+1).get_child(0).disabled = true
-			$Fight/Player/Gems.get_child(val+1).get_child(1).disabled = false
-		else:
-			$Fight/Player/Gems/Gems.remove_child(gemsInFight[0][val][-1])
-			gemsInFight[0][val].remove_at(len(gemsInFight[0][val])-1)
-			inventory[fightTeam[fightActiveTeam]][val] += 1
-			if len(gemsInFight[0][val]) == 0:
-				$Fight/Player/Gems.get_child(val+1).get_child(1).disabled = true
-			$Fight/Player/Gems.get_child(val+1).get_child(0).disabled = false
+		gems = $Fight/Player/Gems
+		countLabel = $Fight/Count/PL1
+		Pl = 0
+		
+	if plus:
+		var prefab = preload("res://Prefab/GemButton.tscn").instantiate()
+		prefab.get_child(0).frame = val
+		gems.get_child(0).add_child(prefab)
+		gemsInFight[Pl][val].append(prefab)
+		inventory[fightTeam[fightActiveTeam]][val] -= 1
+		if inventory[fightTeam[fightActiveTeam]][val] <= 0:
+			gems.get_child(val+1).get_child(0).disabled = true
+		gems.get_child(val+1).get_child(1).disabled = false
+	else:
+		gems.get_child(0).remove_child(gemsInFight[Pl][val][-1])
+		gemsInFight[Pl][val].remove_at(len(gemsInFight[Pl][val])-1)
+		inventory[fightTeam[fightActiveTeam]][val] += 1
+		if len(gemsInFight[Pl][val]) == 0:
+			gems.get_child(val+1).get_child(1).disabled = true
+		gems.get_child(val+1).get_child(0).disabled = false
 			
-		var count = 0
-		for i in len(gemsInFight[0]):
-			count += len(gemsInFight[0][i]) * (i+1)
-				
-		$Fight/Count/PL1.text = "+" + str(count)
+	var count = 0
+	for i in len(gemsInFight[Pl]):
+		count += len(gemsInFight[Pl][i]) * (i+1)
+			
+	if fightActiveTeam == 0:
+		countLabel.text = "+" + str(count + gemsCount[0])
+	else:
+		countLabel.text = "+" + str(count + gemsCount[1])
+	
 	updateInventory(fightTeam[fightActiveTeam])

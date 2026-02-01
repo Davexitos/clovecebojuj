@@ -471,7 +471,7 @@ text = "+0"
 [connection signal="pressed" from="Board/Fight/Player/Gems/G4/plus" to="Board" method="_4_plus_pressed"]
 [connection signal="pressed" from="Board/Fight/Player/Gems/G4/minus" to="Board" method="_4_minus_pressed"]
 [connection signal="pressed" from="Board/Fight/Player2/Gems/G1/plus" to="Board" method="_1_plus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player2/Gems/G1/minus" to="Board" method="_2_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G1/minus" to="Board" method="_1_minus_pressed"]
 [connection signal="pressed" from="Board/Fight/Player2/Gems/G2/plus" to="Board" method="_2_plus_pressed"]
 [connection signal="pressed" from="Board/Fight/Player2/Gems/G2/minus" to="Board" method="_2_minus_pressed"]
 [connection signal="pressed" from="Board/Fight/Player2/Gems/G3/plus" to="Board" method="_3_plus_pressed"]
