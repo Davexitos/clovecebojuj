@@ -70,6 +70,7 @@ texture = ExtResource("11_7uld1")
 vframes = 5
 frame = 4
 script = ExtResource("7_wxx8k")
+infinityRoll = true
 
 [node name="Label" type="Label" parent="Board/MoveDice" unique_id=1478782753]
 offset_left = -69.4118
@@ -168,6 +169,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_8sb8k")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_wxx8k")
 text = "Next turn"
 script = ExtResource("16_myj5t")
+nextTurnLimit = false
 
 [node name="Fight" type="Sprite2D" parent="Board" unique_id=367502171]
 visible = false

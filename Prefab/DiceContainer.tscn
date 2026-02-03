@@ -1,14 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctbwpbpfmt573"]
+[gd_scene format=3 uid="uid://ctbwpbpfmt573"]
 
 [ext_resource type="Texture2D" uid="uid://skwruhwjoigs" path="res://Sprites/Dice.png" id="1_55jb5"]
 
-[node name="AspectRatioContainer" type="AspectRatioContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" unique_id=2142150017]
 offset_right = 40.0
 offset_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=59288986]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 46
@@ -16,7 +16,7 @@ text = "?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="Label"]
+[node name="Sprite2D" type="Sprite2D" parent="Label" unique_id=612397447]
 position = Vector2(-33.9526, -14.271)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_55jb5")

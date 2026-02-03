@@ -1,24 +1,19 @@
 [gd_scene format=3 uid="uid://chi633188sjr4"]
 
-[ext_resource type="Script" uid="uid://cgasmx1onmo4m" path="res://Scripts/scripts/board.gd" id="1_8sb8k"]
+[ext_resource type="Script" uid="uid://jfye6rq1a24l" path="res://Scripts/board2.gd" id="1_7uld1"]
 [ext_resource type="Texture2D" uid="uid://bh8swn7ciae4m" path="res://Sprites/BoardS.png" id="2_jo01r"]
 [ext_resource type="Texture2D" uid="uid://dp8dcwil4socg" path="res://Sprites/Gems.png" id="3_18uys"]
-[ext_resource type="Script" uid="uid://bn3hg12qaee65" path="res://Scripts/scripts/FigureControl.gd" id="4_qtp1v"]
-[ext_resource type="Script" uid="uid://d4gkpbrgd74kt" path="res://Scripts/scripts/moveDice.gd" id="7_wxx8k"]
 [ext_resource type="Texture2D" uid="uid://bqpulmbq6jafv" path="res://Sprites/Cursor.png" id="7_xudy4"]
-[ext_resource type="Script" uid="uid://ocgifaa7gk4d" path="res://Scripts/scripts/cursor.gd" id="8_tvoxi"]
+[ext_resource type="Script" uid="uid://db4657sf6h6cs" path="res://Scripts/cursor.gd" id="8_tvoxi"]
 [ext_resource type="Texture2D" uid="uid://0mw2iamxot23" path="res://Sprites/ButtonDisable.png" id="9_8ayhb"]
 [ext_resource type="Texture2D" uid="uid://br3j5ya8dd1lw" path="res://Sprites/ButtonHover.png" id="9_gj8lt"]
 [ext_resource type="Texture2D" uid="uid://bleqiq6hkdsdx" path="res://Sprites/ButtonPresed.png" id="10_8ayhb"]
-[ext_resource type="Script" uid="uid://fihnew21nwjp" path="res://Scripts/scripts/inventory.gd" id="11_2hi38"]
 [ext_resource type="Texture2D" uid="uid://skwruhwjoigs" path="res://Sprites/Dice.png" id="11_7uld1"]
 [ext_resource type="Texture2D" uid="uid://bjtnv86a1xbvh" path="res://Sprites/Inventory.png" id="12_wxx8k"]
 [ext_resource type="Texture2D" uid="uid://8p4bpt43k28u" path="res://Sprites/Fight.png" id="13_8sb8k"]
 [ext_resource type="Texture2D" uid="uid://bk2iaeobdr3xi" path="res://Sprites/Shop.png" id="13_qtp1v"]
 [ext_resource type="Texture2D" uid="uid://bsjsv0fjmwpf6" path="res://Sprites/Button.png" id="14_purbk"]
 [ext_resource type="Texture2D" uid="uid://domukvkmhd8o6" path="res://Sprites/Line.png" id="15_wxx8k"]
-[ext_resource type="Script" uid="uid://cgsek4kjnqcsr" path="res://Scripts/scripts/button.gd" id="16_myj5t"]
-[ext_resource type="Script" uid="uid://238tlhvdpexg" path="res://Scripts/scripts/fight.gd" id="18_2hi38"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gj8lt"]
 texture = ExtResource("14_purbk")
@@ -35,27 +30,26 @@ texture = ExtResource("9_8ayhb")
 [node name="Scene" type="Node2D" unique_id=2097204935]
 
 [node name="Board" type="Node2D" parent="." unique_id=1684131742]
-script = ExtResource("1_8sb8k")
+script = ExtResource("1_7uld1")
+nextTurnLimit = false
+infinityRoll = true
 
 [node name="Camera2D" type="Camera2D" parent="Board" unique_id=1544271469]
 
 [node name="BoardS" type="Sprite2D" parent="Board" unique_id=1777159859]
 texture = ExtResource("2_jo01r")
 
-[node name="FigureControl" type="Node2D" parent="Board" unique_id=995776848]
-script = ExtResource("4_qtp1v")
-
-[node name="Colectible" type="Sprite2D" parent="Board/FigureControl" unique_id=1248501982]
+[node name="Colectible" type="Sprite2D" parent="Board" unique_id=1248501982]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_18uys")
 hframes = 4
 frame = 3
 
-[node name="Figures" type="Node2D" parent="Board/FigureControl" unique_id=1800343419]
+[node name="Figure" type="Node2D" parent="Board" unique_id=995776848]
 
-[node name="DistanceMarks" type="Node2D" parent="Board/FigureControl" unique_id=1137643094]
+[node name="Marks" type="Node2D" parent="Board" unique_id=1137643094]
 
-[node name="Glow" type="Node2D" parent="Board/FigureControl" unique_id=1892371882]
+[node name="Glow" type="Node2D" parent="Board" unique_id=1892371882]
 
 [node name="Cursor" type="Sprite2D" parent="Board" unique_id=1727545094]
 scale = Vector2(0.5, 0.5)
@@ -63,15 +57,14 @@ texture = ExtResource("7_xudy4")
 hframes = 4
 script = ExtResource("8_tvoxi")
 
-[node name="MoveDice" type="Sprite2D" parent="Board" unique_id=1915012571]
+[node name="Dice" type="Sprite2D" parent="Board" unique_id=1915012571]
 position = Vector2(677, -237)
 scale = Vector2(0.85, 0.85)
 texture = ExtResource("11_7uld1")
 vframes = 5
 frame = 4
-script = ExtResource("7_wxx8k")
 
-[node name="Label" type="Label" parent="Board/MoveDice" unique_id=1478782753]
+[node name="Label" type="Label" parent="Board/Dice" unique_id=1478782753]
 offset_left = -69.4118
 offset_top = -165.882
 offset_right = 75.5882
@@ -79,7 +72,7 @@ offset_bottom = -89.8824
 theme_override_font_sizes/font_size = 50
 text = "Move"
 
-[node name="Num" type="Label" parent="Board/MoveDice" unique_id=1196563498]
+[node name="Num" type="Label" parent="Board/Dice" unique_id=1196563498]
 offset_left = -36.4706
 offset_top = -78.8235
 offset_right = 26.5294
@@ -91,7 +84,6 @@ text = "1"
 position = Vector2(-688, 28)
 scale = Vector2(0.741032, 0.741033)
 texture = ExtResource("12_wxx8k")
-script = ExtResource("11_2hi38")
 
 [node name="Label" type="Label" parent="Board/Inventory" unique_id=1950007405]
 offset_left = -130.899
@@ -167,14 +159,12 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_7uld1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_8sb8k")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_wxx8k")
 text = "Next turn"
-script = ExtResource("16_myj5t")
 
 [node name="Fight" type="Sprite2D" parent="Board" unique_id=367502171]
 visible = false
 position = Vector2(708, 25)
 scale = Vector2(0.732717, 0.732717)
 texture = ExtResource("13_8sb8k")
-script = ExtResource("18_2hi38")
 
 [node name="Player" type="Node2D" parent="Board/Fight" unique_id=747340311]
 
@@ -319,7 +309,6 @@ offset_right = 288.0
 offset_bottom = 267.698
 
 [node name="Gems" type="Node2D" parent="Board/Fight/Player2" unique_id=703426676]
-visible = false
 scale = Vector2(1.365, 1.365)
 
 [node name="Gems" type="GridContainer" parent="Board/Fight/Player2/Gems" unique_id=1762065242]
@@ -472,31 +461,20 @@ offset_bottom = 94.3647
 theme_override_font_sizes/font_size = 68
 text = "+0"
 
-[connection signal="addToInventory" from="Board/FigureControl" to="Board/Inventory" method="_add_to_inventory"]
-[connection signal="changeContactStaus" from="Board/FigureControl" to="Board/Button" method="_change_contact_staus"]
-[connection signal="changeFightContact" from="Board/FigureControl" to="Board/Fight" method="_change_fight_contact"]
-[connection signal="child_entered_tree" from="Board/FigureControl/Figures" to="Board/FigureControl/DistanceMarks" method="_on_figures_child_entered_tree"]
-[connection signal="child_entered_tree" from="Board/FigureControl/DistanceMarks" to="Board/MoveDice" method="_on_distance_marks_child_entered_tree"]
-[connection signal="enableDisableButton" from="Board/MoveDice" to="Board/Button" method="enableDisableButton"]
 [connection signal="pressed" from="Board/Button" to="Board" method="_on_button_pressed"]
-[connection signal="addToInventory" from="Board/Fight" to="Board/Inventory" method="_add_to_inventory"]
-[connection signal="changeContactStaus" from="Board/Fight" to="Board/Button" method="_change_contact_staus"]
-[connection signal="glow" from="Board/Fight" to="Board/FigureControl" method="glow"]
-[connection signal="removeFigure" from="Board/Fight" to="Board/FigureControl" method="removeFigure"]
-[connection signal="updateInventory" from="Board/Fight" to="Board/Inventory" method="updateInventory"]
-[connection signal="pressed" from="Board/Fight/Player/Gems/G1/plus" to="Board/Fight" method="_1_plus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player/Gems/G1/minus" to="Board/Fight" method="_1_minus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player/Gems/G2/plus" to="Board/Fight" method="_2_plus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player/Gems/G2/minus" to="Board/Fight" method="_2_minus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player/Gems/G3/plus" to="Board/Fight" method="_3_plus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player/Gems/G3/minus" to="Board/Fight" method="_3_minus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player/Gems/G4/plus" to="Board/Fight" method="_4_plus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player/Gems/G4/minus" to="Board/Fight" method="_4_minus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player2/Gems/G1/plus" to="Board/Fight" method="_1_plus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player2/Gems/G1/minus" to="Board/Fight" method="_1_minus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player2/Gems/G2/plus" to="Board/Fight" method="_2_plus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player2/Gems/G2/minus" to="Board/Fight" method="_2_minus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player2/Gems/G3/plus" to="Board/Fight" method="_3_plus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player2/Gems/G3/minus" to="Board/Fight" method="_3_minus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player2/Gems/G4/plus" to="Board/Fight" method="_4_plus_pressed"]
-[connection signal="pressed" from="Board/Fight/Player2/Gems/G4/minus" to="Board/Fight" method="_4_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G1/plus" to="Board" method="_1_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G1/minus" to="Board" method="_1_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G2/plus" to="Board" method="_2_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G2/minus" to="Board" method="_2_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G3/plus" to="Board" method="_3_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G3/minus" to="Board" method="_3_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G4/plus" to="Board" method="_4_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player/Gems/G4/minus" to="Board" method="_4_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G1/plus" to="Board" method="_1_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G1/minus" to="Board" method="_1_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G2/plus" to="Board" method="_2_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G2/minus" to="Board" method="_2_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G3/plus" to="Board" method="_3_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G3/minus" to="Board" method="_3_minus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G4/plus" to="Board" method="_4_plus_pressed"]
+[connection signal="pressed" from="Board/Fight/Player2/Gems/G4/minus" to="Board" method="_4_minus_pressed"]
