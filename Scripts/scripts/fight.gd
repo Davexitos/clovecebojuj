@@ -28,6 +28,7 @@ func setFight():
 	
 	$Player/Gems.visible = true
 	$Player2/Gems.visible = false
+	$Result.visible = false
 	$Count.position = Vector2(-173.327,200)
 	position = Vector2(708.0,25.0)
 	
@@ -157,7 +158,7 @@ func nextFightTurn():
 		$Player/Gems.visible = false
 		$Player2/Gems.visible = false
 		$Count.position = Vector2(-173.327,-0)
-		position = Vector2(708.0,-81)
+		position = Vector2(708.0,-100)
 		return
 	
 	fightActiveTeam += 1
@@ -191,8 +192,10 @@ func rollFight():
 			var roll = randi_range(1,6)
 			i.get_child(0).text= str(roll)
 			count[x] += roll
-	
-	print(count)
+			
+	$Result.visible = true
+	$Result/PL1/Label.text = str(count[0])
+	$Result/PL2/Label.text = str(count[1])
 	
 	var lose = -1
 	if count[0] > count[1]:

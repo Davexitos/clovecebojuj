@@ -34,10 +34,10 @@ texture = ExtResource("9_8ayhb")
 
 [node name="Scene" type="Node2D" unique_id=2097204935]
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1544271469]
+
 [node name="Board" type="Node2D" parent="." unique_id=1684131742]
 script = ExtResource("1_8sb8k")
-
-[node name="Camera2D" type="Camera2D" parent="Board" unique_id=1544271469]
 
 [node name="BoardS" type="Sprite2D" parent="Board" unique_id=1777159859]
 texture = ExtResource("2_jo01r")
@@ -180,11 +180,12 @@ script = ExtResource("18_2hi38")
 
 [node name="Dices" type="GridContainer" parent="Board/Fight/Player" unique_id=206548109]
 offset_left = -20.0001
-offset_top = -366.0
+offset_top = -266.13278
 offset_right = 333.0
 offset_bottom = -52.0
 
 [node name="Gems" type="Node2D" parent="Board/Fight/Player" unique_id=1616783047]
+visible = false
 position = Vector2(-966.267, 109.183)
 scale = Vector2(1.36478, 1.36478)
 
@@ -323,7 +324,7 @@ visible = false
 scale = Vector2(1.365, 1.365)
 
 [node name="Gems" type="GridContainer" parent="Board/Fight/Player2/Gems" unique_id=1762065242]
-offset_left = -201.0
+offset_left = -205.96732
 offset_top = -73.0
 offset_right = -61.0
 offset_bottom = 193.0
@@ -471,6 +472,36 @@ offset_right = 22.0436
 offset_bottom = 94.3647
 theme_override_font_sizes/font_size = 68
 text = "+0"
+
+[node name="Result" type="Node2D" parent="Board/Fight" unique_id=1445501955]
+
+[node name="PL1" type="Sprite2D" parent="Board/Fight/Result" unique_id=1302344831]
+position = Vector2(0, -387.5985)
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("14_purbk")
+
+[node name="Label" type="Label" parent="Board/Fight/Result/PL1" unique_id=1203416594]
+offset_left = -206.08229
+offset_top = -70.968735
+offset_right = 193.79924
+offset_bottom = 71.031265
+theme_override_font_sizes/font_size = 103
+text = "0"
+horizontal_alignment = 1
+
+[node name="PL2" type="Sprite2D" parent="Board/Fight/Result" unique_id=374753068]
+position = Vector2(0, 390.32806)
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("14_purbk")
+
+[node name="Label" type="Label" parent="Board/Fight/Result/PL2" unique_id=265970305]
+offset_left = -206.08229
+offset_top = -70.968735
+offset_right = 193.79924
+offset_bottom = 71.031265
+theme_override_font_sizes/font_size = 103
+text = "0"
+horizontal_alignment = 1
 
 [connection signal="addToInventory" from="Board/FigureControl" to="Board/Inventory" method="_add_to_inventory"]
 [connection signal="changeContactStaus" from="Board/FigureControl" to="Board/Button" method="_change_contact_staus"]

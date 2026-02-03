@@ -1,5 +1,6 @@
 extends Node
 
+var win
 var scale : float= 1.0
 var isFight = false
 var Roll := 0

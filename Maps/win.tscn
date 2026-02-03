@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://n3jyasf6ywfr"]
+
+[ext_resource type="Script" uid="uid://b2nukroxma8wa" path="res://Scripts/obj/AutoScale.gd" id="1_piepk"]
+[ext_resource type="Script" uid="uid://t80nb20fbuqp" path="res://Scripts/scripts/winLabel.gd" id="2_n3pu7"]
+
+[node name="scene" type="Node2D" unique_id=1711014297]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=967676333]
+
+[node name="AutoScale" type="Node2D" parent="." unique_id=1577330402]
+script = ExtResource("1_piepk")
+metadata/_custom_type_script = "uid://b2nukroxma8wa"
+
+[node name="Label" type="Label" parent="AutoScale" unique_id=1640945107]
+offset_left = -577.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 168.0
+theme_override_font_sizes/font_size = 85
+text = "Player 1 win
+(thanks for playing >.O)"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_n3pu7")
+
+[node name="Label2" type="Label" parent="AutoScale" unique_id=1994923059]
+offset_left = -577.0
+offset_top = 137.0
+offset_right = 576.0
+offset_bottom = 321.0
+theme_override_font_sizes/font_size = 55
+text = "Game is still work in progress
+Restart game to play again"
+horizontal_alignment = 1
+vertical_alignment = 1

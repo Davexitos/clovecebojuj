@@ -103,15 +103,16 @@ func removeFigure(figure): #remove Figure from board and arrays
 	Figures[figure.Team].erase(figure)
 	$Figures.remove_child(figure)
 
-	#----IDK where to put this code T^T Its late and im tired	
-	if figure.Team != 4 and len(Figures[figure.Team]) == 0:
-		if figure.Team <= GlobalVar.GetActivePlayer:
+	isPlayerRemoved(figure.Team)
+
+func isPlayerRemoved(team):
+	if team != 4 and len(Figures[team]) == 0:
+		if team <= GlobalVar.GetActivePlayer:
 			GlobalVar.ActivePlayer-=1
-		GlobalVar.ActiveTeams.erase(figure.Team)
+		GlobalVar.ActiveTeams.erase(team)
 		if len(GlobalVar.ActiveTeams) < 2:
-			print("Player " + str(GlobalVar.GetActivePlayer))
-			get_tree().quit()
-	#----
+			GlobalVar.win = GlobalVar.GetActivePlayer
+			get_tree().change_scene_to_file("res://Maps/win.tscn")
 
 func deleteMarks(): #remove distance marks from array and board
 	for i in $DistanceMarks.get_children():
