@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bbduslml0jmay"]
+
+[ext_resource type="Texture2D" uid="uid://vu3gbk87q2lk" path="res://Sprites/Mark.png" id="1_s2jkw"]
+[ext_resource type="Script" uid="uid://dy7f4l35gwamm" path="res://Scripts/scripts/Mark.gd" id="2_ton1y"]
+
+[node name="TileSprite" type="Sprite2D" unique_id=1267465053]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_s2jkw")
+script = ExtResource("2_ton1y")
+metadata/_custom_type_script = "uid://da4twq1iwar2i"
+
+[node name="Label" type="Label" parent="." unique_id=1761684326]
+offset_left = -20.0
+offset_top = -32.0
+offset_right = 20.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.49019608)
+theme_override_font_sizes/font_size = 44
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

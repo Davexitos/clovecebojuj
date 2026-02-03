@@ -2,13 +2,19 @@ extends Node
 
 var scale : float= 1.0
 var isFight = false
-var ActivePlayer := -1:
+var Roll := 0
+var ActiveFigure : Movable
+
+var ActiveTeams = [0,1,2,3]
+
+		
+var ActivePlayer := 0:
 	set(val):
-		if val > 3:
+		if val > len(ActiveTeams)-1:
 			ActivePlayer = 0
 		else:
 			ActivePlayer = val
-		$"../Scene/Board/Cursor".nextTurn(ActivePlayer)
 
-var Roll :int
-var ActiveFigure: Figure
+var GetActivePlayer:
+	get:
+		return ActiveTeams[ActivePlayer]
