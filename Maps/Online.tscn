@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://b7l6574ts6gpm"]
+
+[ext_resource type="PackedScene" uid="uid://chi633188sjr4" path="res://Maps/board.tscn" id="1_fq6am"]
+[ext_resource type="Script" uid="uid://dfyks2tsk2dox" path="res://Scripts/scripts/MpMain.gd" id="1_ocmlb"]
+[ext_resource type="Script" uid="uid://bvrkswnkn762" path="res://Scripts/scripts/Online/board.gd" id="3_00xlx"]
+[ext_resource type="PackedScene" uid="uid://byakmu06fi7a0" path="res://Maps/Loby.tscn" id="3_jk5xa"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fq6am"]
+properties/0/path = NodePath(".:Pid_Array")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("Loby/AutoScale/Num:text")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="Node2D" type="Node2D" unique_id=1660525172]
+script = ExtResource("1_ocmlb")
+
+[node name="Scene" parent="." unique_id=2097204935 instance=ExtResource("1_fq6am")]
+visible = false
+
+[node name="Board" parent="Scene" index="1" unique_id=1684131742]
+script = ExtResource("3_00xlx")
+
+[node name="MoveDice" parent="Scene/Board" index="3" unique_id=1915012571]
+visible = false
+
+[node name="Shop" parent="Scene/Board" index="5" unique_id=1481599060]
+visible = false
+
+[node name="Label" type="Label" parent="Scene/Board" index="8" unique_id=1158496689]
+offset_left = 467.0
+offset_top = -61.0
+offset_right = 938.0
+offset_bottom = -10.0
+theme_override_font_sizes/font_size = 37
+text = "waiting for other players..."
+
+[node name="Loby" parent="." unique_id=2051669459 instance=ExtResource("3_jk5xa")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1854892190]
+replication_config = SubResource("SceneReplicationConfig_fq6am")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=65191193]
+_spawnable_scenes = PackedStringArray("uid://ci3o11dtvues4")
+spawn_path = NodePath("../Scene/Board/FigureControl/Figures")
+
+[connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_delta_synchronized"]
+[connection signal="tree_entered" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_tree_entered"]
+
+[editable path="Scene"]
+[editable path="Loby"]

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://ci3o11dtvues4"]
+
+[ext_resource type="Script" uid="uid://dyd8cfp2wevgr" path="res://Prefab/mp_soldier.gd" id="1_1ci8y"]
+[ext_resource type="Texture2D" uid="uid://8qf1u5u32dk4" path="res://Sprites/Figure.png" id="1_ysi0x"]
+
+[node name="Movable" type="Sprite2D" unique_id=1969171580]
+texture = ExtResource("1_ysi0x")
+hframes = 5
+vframes = 2
+script = ExtResource("1_1ci8y")
+metadata/_custom_type_script = "uid://cdtt06evqpnj7"

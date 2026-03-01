@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://byakmu06fi7a0"]
+
+[ext_resource type="Script" uid="uid://dscfxlvll1ggf" path="res://Scripts/scripts/loby.gd" id="1_2p850"]
+[ext_resource type="Script" uid="uid://b2nukroxma8wa" path="res://Scripts/obj/AutoScale.gd" id="1_jusfb"]
+[ext_resource type="Texture2D" uid="uid://bsjsv0fjmwpf6" path="res://Sprites/Button.png" id="2_fk7en"]
+[ext_resource type="Texture2D" uid="uid://bleqiq6hkdsdx" path="res://Sprites/ButtonPresed.png" id="3_2p850"]
+[ext_resource type="Texture2D" uid="uid://br3j5ya8dd1lw" path="res://Sprites/ButtonHover.png" id="4_dkdrw"]
+[ext_resource type="Texture2D" uid="uid://0mw2iamxot23" path="res://Sprites/ButtonDisable.png" id="5_x840g"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oh002"]
+texture = ExtResource("2_fk7en")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yvudp"]
+texture = ExtResource("3_2p850")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2dsug"]
+texture = ExtResource("4_dkdrw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sp3uo"]
+texture = ExtResource("5_x840g")
+
+[node name="Node2D" type="Node2D" unique_id=2051669459]
+script = ExtResource("1_2p850")
+
+[node name="AutoScale" type="Node2D" parent="." unique_id=230768409]
+script = ExtResource("1_jusfb")
+metadata/_custom_type_script = "uid://b2nukroxma8wa"
+
+[node name="Label" type="Label" parent="AutoScale" unique_id=1174262487]
+offset_left = -577.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 325.0
+theme_override_font_sizes/font_size = 85
+text = "Waiting to players...
+ /4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Num" type="Label" parent="AutoScale" unique_id=1456359073]
+offset_left = -542.0
+offset_top = -211.0
+offset_right = 420.906
+offset_bottom = 331.0
+theme_override_font_sizes/font_size = 85
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="AutoScale" unique_id=1809177602]
+offset_left = 334.0
+offset_top = 195.0
+offset_right = 518.0
+offset_bottom = 281.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxTexture_oh002")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_yvudp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2dsug")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_sp3uo")
+text = "Back"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=246438497]
+
+[connection signal="pressed" from="AutoScale/Back" to="." method="_on_back_pressed"]

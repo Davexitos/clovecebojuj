@@ -14,7 +14,6 @@ func rollDice():
 	GlobalVar.Roll = randi_range(1,6)
 	$Num.text = str(GlobalVar.Roll)
 
-
 func _on_distance_marks_child_entered_tree(node: Node) -> void:
 	node.click.connect(rollSub)
 
