@@ -22,6 +22,7 @@ config/icon="uid://cloxurmlrhxhi"
 [autoload]
 
 GlobalVar="*res://Scripts/GlobalVar.gd"
+GlobalMp="*uid://ck5a4ehnabei8"
 
 [input]
 

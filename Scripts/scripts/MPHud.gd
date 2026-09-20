@@ -20,7 +20,7 @@ func _on_join_pressed() -> void:
 		OS.alert("Failed to start multiplayer client.")
 		return
 		
-	GlobalVar.ClientPeer(peer)
+	GlobalMp.ClientPeer(peer)
 	
 	get_tree().change_scene_to_file("res://Maps/Online.tscn")
 
@@ -39,7 +39,7 @@ func _on_host_pressed() -> void:
 		OS.alert("Failed to start multiplayer server.")
 		return
 	
-	GlobalVar.HostPeer(peer)
+	GlobalMp.HostPeer(peer)
 	
 	get_tree().change_scene_to_file("res://Maps/Online.tscn")
 

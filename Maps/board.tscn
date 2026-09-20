@@ -17,8 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://bk2iaeobdr3xi" path="res://Sprites/Shop.png" id="13_qtp1v"]
 [ext_resource type="Texture2D" uid="uid://bsjsv0fjmwpf6" path="res://Sprites/Button.png" id="14_purbk"]
 [ext_resource type="Texture2D" uid="uid://domukvkmhd8o6" path="res://Sprites/Line.png" id="15_wxx8k"]
-[ext_resource type="Script" uid="uid://cgsek4kjnqcsr" path="res://Scripts/scripts/button.gd" id="16_myj5t"]
-[ext_resource type="Script" uid="uid://238tlhvdpexg" path="res://Scripts/scripts/fight.gd" id="18_2hi38"]
+[ext_resource type="Script" uid="uid://cgsek4kjnqcsr" path="res://Scripts/scripts/Online/button.gd" id="16_myj5t"]
+[ext_resource type="Script" uid="uid://238tlhvdpexg" path="res://Scripts/scripts/Local/fight.gd" id="18_2hi38"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gj8lt"]
 texture = ExtResource("14_purbk")

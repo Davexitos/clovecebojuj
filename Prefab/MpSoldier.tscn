@@ -1,11 +1,22 @@
 [gd_scene format=3 uid="uid://ci3o11dtvues4"]
 
-[ext_resource type="Script" uid="uid://dyd8cfp2wevgr" path="res://Prefab/mp_soldier.gd" id="1_1ci8y"]
 [ext_resource type="Texture2D" uid="uid://8qf1u5u32dk4" path="res://Sprites/Figure.png" id="1_ysi0x"]
+[ext_resource type="Script" uid="uid://cdtt06evqpnj7" path="res://Scripts/obj/moveble.gd" id="2_ysi0x"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ysi0x"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:frame")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [node name="Movable" type="Sprite2D" unique_id=1969171580]
 texture = ExtResource("1_ysi0x")
 hframes = 5
 vframes = 2
-script = ExtResource("1_1ci8y")
+script = ExtResource("2_ysi0x")
 metadata/_custom_type_script = "uid://cdtt06evqpnj7"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1200654763]
+replication_config = SubResource("SceneReplicationConfig_ysi0x")

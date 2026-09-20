@@ -4,14 +4,16 @@ signal changeContactStaus(str: String)
 signal addToInventory(gem: int, player: int, val:int)
 signal changeFightContact(fight)
 
-var shift := [
+const 	FIGURE = preload("res://Prefab/MpSoldier.tscn")
+
+const  shift := [
 	[1,1],
 	[-1,1],
 	[-1,-1],
 	[1,-1]
 ]
 
-var chance: Array[float] = [40,30,20,10]
+const  chance: Array[float] = [40,30,20,10]
 
 var activeMage := [] # [Mage, contactCount]
 
@@ -48,6 +50,10 @@ var Map = [
 ]
 
 func _ready() -> void:
+	$MultiplayerSpawner.spawn_function = addFigure
+	
+	
+	if !multiplayer.is_server():	return #----------------------------------------
 	var FiguresStartPos = [
 		#[Type,Player,PosX,PosY]
 		[Soldier,0,0,0],
@@ -81,27 +87,37 @@ func _ready() -> void:
 	]
 	
 	for i in FiguresStartPos:
-		var figure = i[0]
-		var player = i[1]
-		var posX = i[2]
-		var posY = i[3]
-		var newFigure = figure.new(posX,posY,player)
-		addFigure(newFigure)
+		$MultiplayerSpawner.spawn(i)
 
-func addFigure(newFigure): #add Figure to board and arrays
-	$Figures.add_child(newFigure)
-	Map[newFigure.PosY][newFigure.PosX] = newFigure
-	Figures[newFigure.Team].append(newFigure)
-	if newFigure is Movable: #connect signals
-		newFigure.click.connect(deleteMarks)
-		newFigure.click.connect(actualizateContact)
-		newFigure.marking.connect(marking)
-		newFigure.glow.connect(glow)
+func addFigure(i): #add Figure to board and arrays
+	var player = i[1]
+	var posX = i[2]
+	var posY = i[3]
+	
+	var newFigure = FIGURE.instantiate()
+	newFigure.PosX = posX
+	newFigure.PosY = posY
+	newFigure.Team = player
+	newFigure.frame = player
+	
+	Map[posY][posX] = newFigure
+	Figures[player].append(newFigure)
+	newFigure.get_child(0).delta_synchronized.connect(actualizateContact)
+	newFigure.click.connect(deleteMarks)
+	newFigure.click.connect(actualizateContact)
+	newFigure.marking.connect(marking)
+	newFigure.glow.connect(glow)
+	
+	return newFigure
 
-func removeFigure(figure): #remove Figure from board and arrays
+@rpc("call_local","any_peer")
+func removeFigure(mapPos: Vector2): #remove Figure from board and arrays
+	var figure = Map[mapPos.y][mapPos.x]
 	Map[figure.PosY][figure.PosX] = 0
 	Figures[figure.Team].erase(figure)
-	$Figures.remove_child(figure)
+	if multiplayer.is_server():
+		$Figures.remove_child(figure)
+	actualizateContact()
 
 	isPlayerRemoved(figure.Team)
 
@@ -198,26 +214,45 @@ func actualizateContact():
 					activeMage.append([x,mageContactsCount])
 	
 	#Set button label to next action by new contacts
-	if !activeMage.is_empty():
-		changeContactStaus.emit("Collect")
-	elif !activeFight.is_empty():
-		changeContactStaus.emit("Fight")
-	else:
-		changeContactStaus.emit("Next turn")
+	if GlobalVar.ActivePlayerId == multiplayer.get_unique_id():
+		if !activeMage.is_empty():
+			changeContactStaus.emit("Collect")
+		elif !activeFight.is_empty():
+			changeContactStaus.emit("Fight")
+		else:
+			changeContactStaus.emit("Next turn")
 	
 	changeFightContact.emit(activeFight)
 
-func move(PosX:int, PosY:int, subRoll: int):
+@rpc("any_peer")
+func move(PosX:int, PosY:int,val ,Origin :Vector2= Vector2()):
+	if Origin != Vector2():
+		GlobalVar.ActiveFigure = Map[Origin.y][Origin.x]
+	else:
+		Origin = Vector2(GlobalVar.ActiveFigure.PosX,GlobalVar.ActiveFigure.PosY)
 	
+	if multiplayer.is_server():
+		actualizateMap.rpc(PosX,PosY,Origin)
+		
+		GlobalVar.ActiveFigure.PosX=PosX
+		GlobalVar.ActiveFigure.PosY=PosY
+		
+		deleteMarks()
+		actualizateContact()
+		
+		if $Colectible.visible and GlobalVar.ActiveFigure.position == $Colectible.position:
+			addToInventory.emit(3,GlobalVar.GetActivePlayer,1)
+			$Colectible.visible = false
+	else:
+		move.rpc_id(1,PosX,PosY,val,Origin)
+		deleteMarks()
+
+@rpc("any_peer","call_local")
+func actualizateMap(PosX:int, PosY:int,Origin :Vector2= Vector2()):
+	if Origin != Vector2():
+		GlobalVar.ActiveFigure = Map[Origin.y][Origin.x]
 	Map[GlobalVar.ActiveFigure.PosY][GlobalVar.ActiveFigure.PosX] = 0
 	Map[PosY][PosX] = GlobalVar.ActiveFigure
-	
-	GlobalVar.ActiveFigure.PosX=PosX
-	GlobalVar.ActiveFigure.PosY=PosY
-	
-	if $Colectible.visible and GlobalVar.ActiveFigure.position == $Colectible.position:
-		addToInventory.emit(3,GlobalVar.GetActivePlayer,1)
-		$Colectible.visible = false
 
 func activateMage():
 	for x in activeMage:
@@ -229,7 +264,7 @@ func activateMage():
 				if rnd < nextChance:
 					addToInventory.emit(y,GlobalVar.GetActivePlayer,1)
 					break
-		removeFigure(x[0])
+		removeFigure.rpc(Vector2(x[0].PosX,x[0].PosY))
 
 func cleanGlow(): 	#clean contact efects
 	for i in $Glow.get_children():

@@ -1,14 +1,4 @@
-extends Node2D
-
-@export var Pid_Array: Array = GlobalVar.Pid_Array
-@export var ActivePlayer: int = GlobalVar.ActivePlayer
-
-func _on_multiplayer_synchronizer_delta_synchronized() -> void:
-	GlobalVar.Pid_Array = Pid_Array
-	GlobalVar.ActivePlayer = ActivePlayer
-	console()
-
-
+extends MultiplayerSynchronizer
 
 func console():
 	print("")
@@ -24,3 +14,6 @@ func console():
 	print("")
 	print("------------------------------------------------------------")
 	print("")
+
+func _on_delta_synchronized() -> void:
+	console()

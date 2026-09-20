@@ -1,5 +1,6 @@
 extends AutoScale
 @onready var figure_control: Node2D = $FigureControl
+#@onready var mpSync = $"../.."
 
 func _draw() -> void:
 	hidenShowControlHud()
@@ -26,7 +27,7 @@ func next():
 			if isReady:
 				$Fight.rollFight()
 			else:
-				$Fight.nextFightTurn()
+				$Fight.nextFightTurn.rpc()
 	else:
 		$MoveDice.visible = true
 		$Shop.visible = true
@@ -36,13 +37,10 @@ func next():
 	figure_control.actualizateContact()
 
 func nextTurn():
-	GlobalVar.isFight = false
-	GlobalVar.ActivePlayer += 1
-	$Cursor.nextTurn(GlobalVar.GetActivePlayer)
 	$MoveDice.rollDice()
-	$Inventory.updateInventory(GlobalVar.GetActivePlayer)
 	figure_control.actualizateContact()
 	$Button.enableDisableButton()
+	ControlToNextPlayer.rpc()
 
 func _on_button_pressed() -> void:
 	next()
@@ -50,6 +48,12 @@ func _on_button_pressed() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("NextTurn"):
 		next()
+
+@rpc("call_local","any_peer")
+func ControlToNextPlayer():
+	GlobalVar.isFight = false
+	GlobalVar.ActivePlayer += 1
+	hidenShowControlHud()
 
 func hidenShowControlHud():
 	if GlobalVar.Pid_Array[GlobalVar.ActivePlayer] == multiplayer.get_unique_id():
