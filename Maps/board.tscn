@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://chi633188sjr4"]
 
-[ext_resource type="Script" uid="uid://cgasmx1onmo4m" path="res://Scripts/scripts/board.gd" id="1_8sb8k"]
+[ext_resource type="Script" uid="uid://cgasmx1onmo4m" path="res://Scripts/scripts/Local/board.gd" id="1_8sb8k"]
 [ext_resource type="Texture2D" uid="uid://bh8swn7ciae4m" path="res://Sprites/BoardS.png" id="2_jo01r"]
 [ext_resource type="Texture2D" uid="uid://dp8dcwil4socg" path="res://Sprites/Gems.png" id="3_18uys"]
-[ext_resource type="Script" uid="uid://bn3hg12qaee65" path="res://Scripts/scripts/FigureControl.gd" id="4_qtp1v"]
+[ext_resource type="Script" uid="uid://bn3hg12qaee65" path="res://Scripts/scripts/Local/FigureControl.gd" id="4_qtp1v"]
 [ext_resource type="Script" uid="uid://d4gkpbrgd74kt" path="res://Scripts/scripts/moveDice.gd" id="7_wxx8k"]
 [ext_resource type="Texture2D" uid="uid://bqpulmbq6jafv" path="res://Sprites/Cursor.png" id="7_xudy4"]
 [ext_resource type="Script" uid="uid://ocgifaa7gk4d" path="res://Scripts/scripts/cursor.gd" id="8_tvoxi"]
@@ -17,8 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://bk2iaeobdr3xi" path="res://Sprites/Shop.png" id="13_qtp1v"]
 [ext_resource type="Texture2D" uid="uid://bsjsv0fjmwpf6" path="res://Sprites/Button.png" id="14_purbk"]
 [ext_resource type="Texture2D" uid="uid://domukvkmhd8o6" path="res://Sprites/Line.png" id="15_wxx8k"]
-[ext_resource type="Script" uid="uid://cgsek4kjnqcsr" path="res://Scripts/scripts/button.gd" id="16_myj5t"]
-[ext_resource type="Script" uid="uid://238tlhvdpexg" path="res://Scripts/scripts/fight.gd" id="18_2hi38"]
+[ext_resource type="Script" uid="uid://cgsek4kjnqcsr" path="res://Scripts/scripts/Online/button.gd" id="16_myj5t"]
+[ext_resource type="Script" uid="uid://238tlhvdpexg" path="res://Scripts/scripts/Local/fight.gd" id="18_2hi38"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gj8lt"]
 texture = ExtResource("14_purbk")
@@ -34,10 +34,10 @@ texture = ExtResource("9_8ayhb")
 
 [node name="Scene" type="Node2D" unique_id=2097204935]
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1544271469]
+
 [node name="Board" type="Node2D" parent="." unique_id=1684131742]
 script = ExtResource("1_8sb8k")
-
-[node name="Camera2D" type="Camera2D" parent="Board" unique_id=1544271469]
 
 [node name="BoardS" type="Sprite2D" parent="Board" unique_id=1777159859]
 texture = ExtResource("2_jo01r")
@@ -180,11 +180,12 @@ script = ExtResource("18_2hi38")
 
 [node name="Dices" type="GridContainer" parent="Board/Fight/Player" unique_id=206548109]
 offset_left = -20.0001
-offset_top = -366.0
+offset_top = -266.13278
 offset_right = 333.0
 offset_bottom = -52.0
 
 [node name="Gems" type="Node2D" parent="Board/Fight/Player" unique_id=1616783047]
+visible = false
 position = Vector2(-966.267, 109.183)
 scale = Vector2(1.36478, 1.36478)
 
@@ -323,7 +324,7 @@ visible = false
 scale = Vector2(1.365, 1.365)
 
 [node name="Gems" type="GridContainer" parent="Board/Fight/Player2/Gems" unique_id=1762065242]
-offset_left = -201.0
+offset_left = -205.96732
 offset_top = -73.0
 offset_right = -61.0
 offset_bottom = 193.0
@@ -471,6 +472,36 @@ offset_right = 22.0436
 offset_bottom = 94.3647
 theme_override_font_sizes/font_size = 68
 text = "+0"
+
+[node name="Result" type="Node2D" parent="Board/Fight" unique_id=1445501955]
+
+[node name="PL1" type="Sprite2D" parent="Board/Fight/Result" unique_id=1302344831]
+position = Vector2(0, -387.5985)
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("14_purbk")
+
+[node name="Label" type="Label" parent="Board/Fight/Result/PL1" unique_id=1203416594]
+offset_left = -206.08229
+offset_top = -70.968735
+offset_right = 193.79924
+offset_bottom = 71.031265
+theme_override_font_sizes/font_size = 103
+text = "0"
+horizontal_alignment = 1
+
+[node name="PL2" type="Sprite2D" parent="Board/Fight/Result" unique_id=374753068]
+position = Vector2(0, 390.32806)
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("14_purbk")
+
+[node name="Label" type="Label" parent="Board/Fight/Result/PL2" unique_id=265970305]
+offset_left = -206.08229
+offset_top = -70.968735
+offset_right = 193.79924
+offset_bottom = 71.031265
+theme_override_font_sizes/font_size = 103
+text = "0"
+horizontal_alignment = 1
 
 [connection signal="addToInventory" from="Board/FigureControl" to="Board/Inventory" method="_add_to_inventory"]
 [connection signal="changeContactStaus" from="Board/FigureControl" to="Board/Button" method="_change_contact_staus"]

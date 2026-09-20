@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://dld31vxb4fnbm"]
+
+[ext_resource type="Texture2D" uid="uid://bsjsv0fjmwpf6" path="res://Sprites/Button.png" id="1_4ejti"]
+[ext_resource type="Script" uid="uid://b2nukroxma8wa" path="res://Scripts/obj/AutoScale.gd" id="1_lrnsm"]
+[ext_resource type="Texture2D" uid="uid://bleqiq6hkdsdx" path="res://Sprites/ButtonPresed.png" id="2_lrnsm"]
+[ext_resource type="Script" uid="uid://c4oqqn53hl2eq" path="res://Scripts/scripts/MainHud.gd" id="2_s50iv"]
+[ext_resource type="Texture2D" uid="uid://br3j5ya8dd1lw" path="res://Sprites/ButtonHover.png" id="3_s50iv"]
+[ext_resource type="Texture2D" uid="uid://0mw2iamxot23" path="res://Sprites/ButtonDisable.png" id="4_y3cbc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ac82"]
+texture = ExtResource("1_4ejti")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ymfii"]
+texture = ExtResource("2_lrnsm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7hpaq"]
+texture = ExtResource("3_s50iv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lnc6u"]
+texture = ExtResource("4_y3cbc")
+
+[node name="Control" type="Control" unique_id=678229051]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AutoScale" type="Node2D" parent="." unique_id=309658569]
+script = ExtResource("1_lrnsm")
+metadata/_custom_type_script = "uid://b2nukroxma8wa"
+
+[node name="CenterContainer" type="CenterContainer" parent="AutoScale" unique_id=1410191006]
+offset_left = -811.0
+offset_top = -440.0
+offset_right = 824.0
+offset_bottom = 463.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AutoScale/CenterContainer" unique_id=1239870807]
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("2_s50iv")
+
+[node name="Local" type="Button" parent="AutoScale/CenterContainer/VBoxContainer" unique_id=435051918]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxTexture_1ac82")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ymfii")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7hpaq")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_lnc6u")
+text = "Play local"
+
+[node name="Online" type="Button" parent="AutoScale/CenterContainer/VBoxContainer" unique_id=170349231]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxTexture_1ac82")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ymfii")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7hpaq")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_lnc6u")
+text = "Play Online"
+
+[node name="Control" type="Control" parent="AutoScale/CenterContainer/VBoxContainer" unique_id=194326831]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="AutoScale/CenterContainer/VBoxContainer" unique_id=2071813720]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxTexture_1ac82")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ymfii")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7hpaq")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_lnc6u")
+text = "Exit"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=604580365]
+
+[connection signal="pressed" from="AutoScale/CenterContainer/VBoxContainer/Local" to="AutoScale/CenterContainer/VBoxContainer" method="_on_local_pressed"]
+[connection signal="pressed" from="AutoScale/CenterContainer/VBoxContainer/Online" to="AutoScale/CenterContainer/VBoxContainer" method="_on_online_pressed"]
+[connection signal="pressed" from="AutoScale/CenterContainer/VBoxContainer/Exit" to="AutoScale/CenterContainer/VBoxContainer" method="_on_exit_pressed"]

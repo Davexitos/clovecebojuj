@@ -15,17 +15,14 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="cloveceBojuj"
-run/main_scene="uid://chi633188sjr4"
+run/main_scene="uid://dld31vxb4fnbm"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://cloxurmlrhxhi"
 
 [autoload]
 
 GlobalVar="*res://Scripts/GlobalVar.gd"
-
-[display]
-
-window/size/mode=2
+GlobalMp="*uid://ck5a4ehnabei8"
 
 [input]
 

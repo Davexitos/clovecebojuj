@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://b7l6574ts6gpm"]
+
+[ext_resource type="Script" uid="uid://etpimry6c2w3" path="res://Scripts/scripts/Online/MpGlobalSync.gd" id="1_dc0ra"]
+[ext_resource type="PackedScene" uid="uid://chi633188sjr4" path="res://Maps/board.tscn" id="1_fq6am"]
+[ext_resource type="Script" uid="uid://bvrkswnkn762" path="res://Scripts/scripts/Online/board.gd" id="3_00xlx"]
+[ext_resource type="PackedScene" uid="uid://byakmu06fi7a0" path="res://Maps/Loby.tscn" id="3_jk5xa"]
+[ext_resource type="Script" uid="uid://mx8gh2ebdpcw" path="res://Scripts/scripts/Online/FigureControl.gd" id="4_xpmbs"]
+[ext_resource type="Script" uid="uid://dlx80k5aymyxw" path="res://Scripts/scripts/Online/fight.gd" id="5_uakak"]
+[ext_resource type="Script" uid="uid://dgi58vdaxga6u" path="res://Scripts/scripts/Online/multiplayer_synchronizer.gd" id="6_dc0ra"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fq6am"]
+properties/0/path = NodePath("Loby/AutoScale/Num:text")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:ActivePlayer")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:Pid_Array")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("Scene/Board/Fight/Count/PL1:text")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("Scene/Board/Fight/Count/PL2:text")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+
+[node name="Node2D" type="Node2D" unique_id=1660525172]
+script = ExtResource("1_dc0ra")
+
+[node name="Scene" parent="." unique_id=2097204935 instance=ExtResource("1_fq6am")]
+visible = false
+
+[node name="Board" parent="Scene" index="1" unique_id=1684131742]
+script = ExtResource("3_00xlx")
+
+[node name="FigureControl" parent="Scene/Board" index="1" unique_id=995776848]
+script = ExtResource("4_xpmbs")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Scene/Board/FigureControl" index="4" unique_id=1454859304]
+_spawnable_scenes = PackedStringArray("uid://ci3o11dtvues4")
+spawn_path = NodePath("../Figures")
+
+[node name="MoveDice" parent="Scene/Board" index="3" unique_id=1915012571]
+visible = false
+
+[node name="Shop" parent="Scene/Board" index="5" unique_id=1481599060]
+visible = false
+
+[node name="Fight" parent="Scene/Board" index="7" unique_id=367502171]
+script = ExtResource("5_uakak")
+
+[node name="Wait" type="Label" parent="Scene/Board/Fight/Player" parent_id_path=PackedInt32Array(2097204935, 747340311) index="2" unique_id=255593048]
+visible = false
+offset_left = -287.9693
+offset_top = -449.01373
+offset_right = 282.0307
+offset_bottom = -373.01373
+theme_override_font_sizes/font_size = 55
+text = "waiting for oponent..."
+
+[node name="Wait" type="Label" parent="Scene/Board/Fight/Player2" parent_id_path=PackedInt32Array(2097204935, 1231343892) index="2" unique_id=1385633307]
+visible = false
+offset_left = -285.24
+offset_top = 380.0
+offset_right = 284.76
+offset_bottom = 456.0
+theme_override_font_sizes/font_size = 55
+text = "waiting for oponent..."
+
+[node name="Label" type="Label" parent="Scene/Board" index="8" unique_id=1158496689]
+offset_left = 467.0
+offset_top = -61.0
+offset_right = 938.0
+offset_bottom = -10.0
+theme_override_font_sizes/font_size = 37
+text = "waiting for other players..."
+
+[node name="Loby" parent="." unique_id=2051669459 instance=ExtResource("3_jk5xa")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1854892190]
+replication_config = SubResource("SceneReplicationConfig_fq6am")
+script = ExtResource("6_dc0ra")
+
+[connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="MultiplayerSynchronizer" method="_on_delta_synchronized"]
+
+[editable path="Scene"]
+[editable path="Loby"]

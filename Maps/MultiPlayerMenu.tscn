@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://dopqen4cjdj3g"]
+
+[ext_resource type="Script" uid="uid://b2nukroxma8wa" path="res://Scripts/obj/AutoScale.gd" id="1_qnkxa"]
+[ext_resource type="Script" uid="uid://ckxhje2xu6np4" path="res://Scripts/scripts/MPHud.gd" id="2_qnkxa"]
+[ext_resource type="Texture2D" uid="uid://bsjsv0fjmwpf6" path="res://Sprites/Button.png" id="3_tdqej"]
+[ext_resource type="Texture2D" uid="uid://bleqiq6hkdsdx" path="res://Sprites/ButtonPresed.png" id="4_d0e7i"]
+[ext_resource type="Texture2D" uid="uid://br3j5ya8dd1lw" path="res://Sprites/ButtonHover.png" id="5_ix6cu"]
+[ext_resource type="Texture2D" uid="uid://0mw2iamxot23" path="res://Sprites/ButtonDisable.png" id="6_ck1of"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pojk5"]
+texture = ExtResource("3_tdqej")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_838ws"]
+texture = ExtResource("4_d0e7i")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_isvmg"]
+texture = ExtResource("5_ix6cu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_phpfi"]
+texture = ExtResource("6_ck1of")
+
+[node name="Node2D" type="Node2D" unique_id=323368673]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=919571933]
+
+[node name="AutoScale" type="Node2D" parent="." unique_id=1760868831]
+script = ExtResource("1_qnkxa")
+metadata/_custom_type_script = "uid://b2nukroxma8wa"
+
+[node name="CenterContainer" type="CenterContainer" parent="AutoScale" unique_id=753906620]
+offset_left = -811.0
+offset_top = -440.0
+offset_right = 824.0
+offset_bottom = 463.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AutoScale/CenterContainer" unique_id=1969124917]
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("2_qnkxa")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AutoScale/CenterContainer/VBoxContainer" unique_id=1456426847]
+layout_mode = 2
+theme_override_constants/separation = 70
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AutoScale/CenterContainer/VBoxContainer/HBoxContainer" unique_id=618511201]
+layout_mode = 2
+theme_override_constants/separation = 68
+
+[node name="BoxPort" type="LineEdit" parent="AutoScale/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=788805926]
+layout_mode = 2
+placeholder_text = "Host port"
+
+[node name="Host" type="Button" parent="AutoScale/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=898697387]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxTexture_pojk5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_838ws")
+theme_override_styles/hover = SubResource("StyleBoxTexture_isvmg")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_phpfi")
+text = "Host Game"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="AutoScale/CenterContainer/VBoxContainer/HBoxContainer" unique_id=631114348]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="BoxIp" type="LineEdit" parent="AutoScale/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1834989505]
+layout_mode = 2
+placeholder_text = "Join ip"
+
+[node name="BoxPort" type="LineEdit" parent="AutoScale/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=180385322]
+layout_mode = 2
+placeholder_text = "Join port"
+
+[node name="Join" type="Button" parent="AutoScale/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=731645762]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxTexture_pojk5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_838ws")
+theme_override_styles/hover = SubResource("StyleBoxTexture_isvmg")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_phpfi")
+text = "Join Game"
+
+[node name="Control" type="Control" parent="AutoScale/CenterContainer/VBoxContainer" unique_id=1196850684]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Back" type="Button" parent="AutoScale/CenterContainer/VBoxContainer" unique_id=1238048219]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxTexture_pojk5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_838ws")
+theme_override_styles/hover = SubResource("StyleBoxTexture_isvmg")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_phpfi")
+text = "Back"
+
+[connection signal="pressed" from="AutoScale/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer/Host" to="AutoScale/CenterContainer/VBoxContainer" method="_on_host_pressed"]
+[connection signal="pressed" from="AutoScale/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Join" to="AutoScale/CenterContainer/VBoxContainer" method="_on_join_pressed"]
+[connection signal="pressed" from="AutoScale/CenterContainer/VBoxContainer/Back" to="AutoScale/CenterContainer/VBoxContainer" method="_on_back_pressed"]

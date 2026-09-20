@@ -8,7 +8,7 @@ signal glow(x: int, y: int, frm: int)
 var Team = -1
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Click") and !GlobalVar.isFight and GlobalVar.GetActivePlayer == Team:
+	if event.is_action_pressed("Click") and !GlobalVar.isFight and GlobalVar.GetActivePlayer == Team and (!GlobalVar.MP or multiplayer.get_unique_id() == GlobalVar.ActivePlayerId):
 		var clickPos = round(get_global_mouse_position()/(50*GlobalVar.scale))*50.0
 		if clickPos == position:
 			click.emit()
